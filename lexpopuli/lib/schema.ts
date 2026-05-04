@@ -3,8 +3,10 @@ import { pgTable, text, integer, timestamp, boolean, serial, uniqueIndex } from 
 // Użytkownicy
 export const users = pgTable('users', {
   id: text('id').primaryKey(),
+  name: text('name'),
   email: text('email').notNull().unique(),
   emailVerified: timestamp('email_verified'),
+  image: text('image'),
   createdAt: timestamp('created_at').defaultNow(),
   województwo: text('wojewodztwo'),
 })
