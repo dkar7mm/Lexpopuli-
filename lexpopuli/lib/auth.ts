@@ -16,9 +16,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   pages: {
-    signIn: '/dolacz',
-    verifyRequest: '/dolacz/weryfikacja',
-    error: '/dolacz/blad',
+    signIn: '/',
+    verifyRequest: '/',
+    error: '/',
   },
   callbacks: {
     session: async ({ session, user }) => {
