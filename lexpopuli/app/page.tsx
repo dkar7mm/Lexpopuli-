@@ -1,5 +1,7 @@
 'use client'
+
 export const dynamic = 'force-dynamic'
+
 import { useState, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { ARTICLES, CHAPTERS } from '@/lib/articles'
@@ -14,7 +16,7 @@ export default function Home() {
   const [userVotes, setUserVotes] = useState<UserVotes>({})
   const [total, setTotal] = useState(4287)
   const [users, setUsers] = useState(1043)
-  const [collapsedChapters, setCollapsedChapters] = useState<Set<string>>(new Set())
+  const [collapsedChapters, setCollapsedChapters] = useState<Set<string>>(new Set(CHAPTERS))
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
 
@@ -22,7 +24,6 @@ export default function Home() {
   const pct = Math.min(100, Math.round(total / threshold * 100))
 
   useEffect(() => {
-    // Pobierz wyniki głosowań
     fetch('/api/votes').then(r => r.json()).then(data => {
       if (data.results) {
         const map: VoteResults = {}
@@ -34,12 +35,8 @@ export default function Home() {
   }, [])
 
   const handleVote = async (articleId: string, vote: 'y' | 'n') => {
-    if (!session) {
-      setActiveTab('d')
-      return
-    }
+    if (!session) { setActiveTab('d'); return }
     if (userVotes[articleId] === vote) return
-
     const res = await fetch('/api/votes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -60,9 +57,7 @@ export default function Home() {
       const { signIn } = await import('next-auth/react')
       await signIn('email', { email, callbackUrl: '/', redirect: false })
       setRegStatus('sent')
-    } catch {
-      setRegStatus('idle')
-    }
+    } catch { setRegStatus('idle') }
   }
 
   const toggleChapter = (ch: string) => {
@@ -97,13 +92,12 @@ export default function Home() {
             <div className="tagline">Prawo Narodu · superanum.pl · Polska 2025</div>
             <div className="header-rule" />
             <div className="header-desc">
-              Konstytucja nie jest dokumentem państwa. Jest kontraktem, który Naród zawiera sam ze sobą.
-              Tu każdy obywatel ma głos. Tu prawo wynika z woli ludzi — nie z gabinetów.
+              Ta Konstytucja nie będzie dokumentem państwowym. Będzie nowym kontraktem, na zasadach którego stworzymy to Państwo od nowa. Niech prawo wynika z woli świadomego Narodu — nie z gabinetów politycznych obciążonych grzechami przeszłości.
             </div>
             {session && (
-              <div style={{ marginTop: '1rem', fontSize: '13px', color: 'var(--text-light)' }}>
+              <div style={{ marginTop: '1rem', fontSize: '15px', color: 'var(--text-light)' }}>
                 Zalogowany: {session.user?.email} ·{' '}
-                <button onClick={() => signOut()} style={{ color: 'var(--red)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit' }}>
+                <button onClick={() => signOut()} style={{ color: 'var(--red)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '15px', fontFamily: 'inherit' }}>
                   Wyloguj
                 </button>
               </div>
@@ -119,9 +113,9 @@ export default function Home() {
             <div className="cnt"><div className="cnt-n">{users.toLocaleString('pl-PL')}</div><div className="cnt-l">Obywateli</div></div>
             <div className="cnt"><div className="cnt-n">33</div><div className="cnt-l">Artykułów</div></div>
             <div className="prog-wrap">
-              <div className="prog-label">Próg redakcji prawa · {pct}%</div>
+              <div className="prog-label">Głosy na Konstytucję · {pct}% · {total.toLocaleString('pl-PL')} z {threshold.toLocaleString('pl-PL')}</div>
               <div className="prog"><div className="prog-fill" style={{ width: `${pct}%` }} /></div>
-              <div className="prog-sub">{total.toLocaleString('pl-PL')} z {threshold.toLocaleString('pl-PL')} głosów · po osiągnięciu progu AI generuje kolejne akty prawne</div>
+              <div className="prog-sub">Po zebraniu {threshold.toLocaleString('pl-PL')} głosów na Konstytucję — AI zaczyna generować kolejne akty porządku prawnego i poddawać je pod głosowanie Narodu.</div>
             </div>
           </div>
         </div>
@@ -130,7 +124,7 @@ export default function Home() {
       <nav className="site-nav">
         <div className="container">
           <div className="nav-inner">
-            {[['o','O projekcie'],['k','Konstytucja'],['p','Szkielet prawa'],['d','Dołącz']].map(([id,label]) => (
+            {[['o','O projekcie'],['k','Konstytucja'],['p','Porządek prawny'],['d','Dołącz']].map(([id,label]) => (
               <button key={id} className={`ntab${activeTab===id?' active':''}`} onClick={() => setActiveTab(id)}>{label}</button>
             ))}
           </div>
@@ -145,16 +139,17 @@ export default function Home() {
             <div className="sec-title">Czym jest Lex Populi?</div>
             <div className="thin-rule" />
             <div className="manifest">
-              <p>Niniejsza Konstytucja jest zobowiązaniem — nie obietnicą. Zobowiązaniem Narodu wobec siebie samego, wobec swoich dzieci i wnuków. Zobowiązaniem władzy wobec Narodu — do służenia, nie panowania.</p>
-              <p>Państwo polskie jest instytucją służebną — powołaną do życia przez Naród w celu zabezpieczenia praw, wolności i dobrostanu obywateli. Istnieje dla ludzi, nie ludzie dla państwa.</p>
-              <p>Żadna władza nie jest źródłem praw człowieka. Prawa te są przyrodzone i niezbywalne. Konstytucja jedynie je potwierdza i chroni.</p>
+              <p>Lex Populi to projekt budowania kompletnego porządku prawnego Rzeczypospolitej — od zera, przez świadomy Naród.</p>
+              <p>Zaczynamy od Konstytucji — kontraktu który wolni ludzie zawierają między sobą, nie z państwem. Na jej zasadach stworzymy to Państwo od nowa. Potem kodeksy, ustawy, każdy przepis — budowany oddolnie, głos po głosie.</p>
+              <p>Żadnych gotowców z gabinetów. Żadnych ustaw pisanych przez lobbystów. Tylko wola świadomego Narodu — wyrażona wprost, artykuł po artykule.</p>
+              <p>Tu nie głosujesz co cztery lata. Tu głosujesz na każde słowo prawa które Cię dotyczy.</p>
             </div>
             <div className="full-rule" />
             <div className="info-grid">
               <div className="info-box"><div className="info-box-label">Jak głosować</div><div className="info-box-text">Czytasz projekt artykuł po artykule. Głosujesz za lub przeciw. Wyniki widoczne w czasie rzeczywistym. Jeden głos na osobę na każdy artykuł.</div></div>
-              <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji.</div></div>
+              <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji i nie odwołuje się do instytucji niepowołanych przez Naród.</div></div>
               <div className="info-box"><div className="info-box-label">Ważność głosowania</div><div className="info-box-text">Od ★ do ★★★★★ gwiazdek ważności. Jedna gwiazdka = 500 głosów lub 7 dni — co pierwsze. Konstytucja zawsze ★★★★★.</div></div>
-              <div className="info-box"><div className="info-box-label">Po {threshold.toLocaleString('pl-PL')} głosów</div><div className="info-box-text">AI zaczyna generować kolejne akty prawne wynikające z przegłosowanej Konstytucji. Zawsze dwie propozycje. System rośnie oddolnie.</div></div>
+              <div className="info-box"><div className="info-box-label">Po {threshold.toLocaleString('pl-PL')} głosów</div><div className="info-box-text">AI zaczyna generować kolejne akty porządku prawnego wynikające z przegłosowanej Konstytucji. Zawsze dwie propozycje do wyboru. Porządek prawny rośnie oddolnie.</div></div>
             </div>
           </div>
         )}
@@ -165,8 +160,8 @@ export default function Home() {
             <div className="sec-title">Konstytucja Rzeczypospolitej Polskiej</div>
             <div className="thin-rule" />
             {!session && (
-              <div style={{ padding: '1rem 1.25rem', background: 'var(--cream-dark)', borderLeft: '2px solid var(--gold)', marginBottom: '1.5rem', fontSize: '14px', color: 'var(--text-muted)' }}>
-                Czytasz jako gość. <button onClick={() => setActiveTab('d')} style={{ color: 'var(--red)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', textDecoration: 'underline' }}>Zarejestruj się</button> żeby głosować.
+              <div className="notify">
+                Czytasz jako gość. <button onClick={() => setActiveTab('d')} style={{ color: 'var(--red)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', textDecoration: 'underline' }}>Zarejestruj się</button> żeby głosować.
               </div>
             )}
             {articlesByChapter.map(({ chapter, articles: arts }) => (
@@ -221,36 +216,56 @@ export default function Home() {
 
         {activeTab === 'p' && (
           <div>
-            <div className="sec-label">Filozofia państwa minimum · Milton Friedman</div>
-            <div className="sec-title">Szkielet systemu prawnego</div>
+            <div className="sec-label">Budowany oddolnie przez Naród</div>
+            <div className="sec-title">Porządek prawny</div>
             <div className="thin-rule" />
-            <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '2rem', fontStyle: 'italic' }}>
+            <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '2rem', fontStyle: 'italic' }}>
               Hierarchia aktów prawnych budowanych oddolnie przez Naród. Każdy kolejny poziom odblokowuje się po osiągnięciu progu głosów na poziomie wyższym. Przepisy niższego rzędu nie mogą być sprzeczne z wyższymi — pilnuje tego AI.
             </p>
             <div className="hier">
-              {[
-                { name: 'Konstytucja RP', desc: 'Kontrakt Społeczny Narodu · fundament i seed całego systemu', dot: 'var(--red)', badge: 'badge-on', label: 'Aktywna', indent: 0 },
-                { name: 'Kodeks Karny + Kodeks Postępowania Karnego', desc: 'Co jest przestępstwem · jak prowadzić proces karny', dot: 'var(--gold)', badge: 'badge-wait', label: `${threshold.toLocaleString('pl-PL')} głosów`, indent: 1 },
-                { name: 'Kodeks Cywilny + Kodeks Postępowania Cywilnego', desc: 'Własność · umowy · zobowiązania · spory cywilne', dot: 'var(--gold)', badge: 'badge-wait', label: `${threshold.toLocaleString('pl-PL')} głosów`, indent: 1 },
-                { name: 'Ustawy ustrojowe', desc: 'Wybory · referendum · Sąd Konstytucyjny · samorząd terytorialny', dot: 'var(--cream-border)', badge: 'badge-off', label: 'Zablokowane', indent: 2 },
-                { name: 'Prawo podatkowe', desc: 'Proste · proporcjonalne · nie karze sukcesu ani przedsiębiorczości', dot: 'var(--cream-border)', badge: 'badge-off', label: 'Zablokowane', indent: 2 },
-                { name: 'Ustawa o broni', desc: 'Warunki realizacji konstytucyjnego prawa do posiadania broni', dot: 'var(--cream-border)', badge: 'badge-off', label: 'Zablokowane', indent: 2 },
-                { name: 'Ustawa o sieci bezpieczeństwa socjalnego', desc: 'Voucher Friedmanowski · dla tych którzy nie mogą, nie dla tych którzy nie chcą', dot: 'var(--cream-border)', badge: 'badge-off', label: 'Zablokowane', indent: 2 },
-                { name: 'Prawo antymonopolowe', desc: 'Wolny rynek wymaga ochrony przed monopolem', dot: 'var(--cream-border)', badge: 'badge-off', label: 'Zablokowane', indent: 2 },
-                { name: 'Ustawa o lobbingu', desc: 'Jawny rejestr wszystkich spotkań osób publicznych z podmiotami zewnętrznymi', dot: 'var(--cream-border)', badge: 'badge-off', label: 'Zablokowane', indent: 2 },
-                { name: '+ kolejne akty generowane przez AI po każdym głosowaniu...', desc: '', dot: 'var(--cream-border)', badge: 'badge-off', label: 'Zablokowane', indent: 2, muted: true },
-              ].map((item, i) => (
-                <div key={i} className={item.indent === 1 ? 'indent' : item.indent === 2 ? 'indent2' : ''} style={{ opacity: item.muted ? 0.4 : item.badge === 'badge-off' ? 0.6 : 1 }}>
-                  <div className="hier-item">
-                    <div className="hier-dot" style={{ background: item.dot }} />
-                    <div className="hier-info">
-                      <div className="hier-name" style={item.muted ? { fontStyle: 'italic', color: 'var(--text-light)' } : {}}>{item.name}</div>
-                      {item.desc && <div className="hier-desc">{item.desc}</div>}
-                    </div>
-                    <div className={`badge ${item.badge}`}>{item.label}</div>
-                  </div>
+              <div className="hier-item">
+                <div className="hier-dot" style={{ background: 'var(--red)' }} />
+                <div className="hier-info">
+                  <div className="hier-name">Konstytucja RP</div>
+                  <div className="hier-desc">Kontrakt Społeczny Narodu · fundament i seed całego porządku prawnego</div>
                 </div>
-              ))}
+                <div className="badge badge-on">Aktywna</div>
+              </div>
+              <div className="indent">
+                <div className="hier-item">
+                  <div className="hier-dot" style={{ background: 'var(--gold)' }} />
+                  <div className="hier-info">
+                    <div className="hier-name">Kodeks Karny + Kodeks Postępowania Karnego</div>
+                    <div className="hier-desc">Co jest przestępstwem · jak prowadzić proces karny</div>
+                  </div>
+                  <div className="badge badge-wait">{threshold.toLocaleString('pl-PL')} głosów</div>
+                </div>
+                <div className="hier-item">
+                  <div className="hier-dot" style={{ background: 'var(--gold)' }} />
+                  <div className="hier-info">
+                    <div className="hier-name">Kodeks Cywilny + Kodeks Postępowania Cywilnego</div>
+                    <div className="hier-desc">Własność · umowy · zobowiązania · spory cywilne</div>
+                  </div>
+                  <div className="badge badge-wait">{threshold.toLocaleString('pl-PL')} głosów</div>
+                </div>
+              </div>
+              <div className="indent2">
+                <div className="hier-item" style={{ opacity: 0.5 }}>
+                  <div className="hier-dot" style={{ background: 'var(--cream-border)' }} />
+                  <div className="hier-info">
+                    <div className="hier-name">Ustawy ustrojowe</div>
+                    <div className="hier-desc">Wybory · referendum · Sąd Konstytucyjny · samorząd terytorialny</div>
+                  </div>
+                  <div className="badge badge-off">Zablokowane</div>
+                </div>
+                <div className="hier-item" style={{ opacity: 0.35 }}>
+                  <div className="hier-dot" style={{ background: 'var(--cream-border)' }} />
+                  <div className="hier-info">
+                    <div className="hier-name" style={{ color: 'var(--text-light)', fontStyle: 'italic' }}>+ kolejne akty generowane przez AI po każdym głosowaniu...</div>
+                  </div>
+                  <div className="badge badge-off">Zablokowane</div>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -277,14 +292,14 @@ export default function Home() {
                 <div className="manifest" style={{ marginBottom: '2rem' }}>
                   <p>Jeden głos. Jeden obywatel. Rejestracja przez email — tylko po to żeby potwierdzić że nie głosujesz dwa razy. Twój głos jest anonimowy.</p>
                 </div>
-                <div style={{ maxWidth: '380px' }}>
+                <div style={{ maxWidth: '400px' }}>
                   <input type="email" className="form-input" placeholder="Adres email" value={email} onChange={e => setEmail(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleRegister()} />
                   <button className="btn-primary" onClick={handleRegister} disabled={regStatus === 'sending'}>
                     {regStatus === 'sending' ? 'Wysyłanie...' : 'Zarejestruj się'}
                   </button>
                 </div>
-                <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--cream-border)', fontSize: '13px', color: 'var(--text-light)', lineHeight: '1.75', fontStyle: 'italic' }}>
-                  Lex Populi nie jest partią polityczną ani organizacją. Jest narzędziem konsultacji społecznych Narodu Polskiego. Email służy wyłącznie weryfikacji jednego głosu na osobę — nie zbieramy żadnych innych danych, nie wysyłamy reklam.
+                <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--cream-border)', fontSize: '15px', color: 'var(--text-light)', lineHeight: '1.75', fontStyle: 'italic' }}>
+                  Lex Populi nie jest partią polityczną ani organizacją. Jest narzędziem konsultacji społecznych Narodu Polskiego. Email służy wyłącznie weryfikacji jednego głosu na osobę.
                 </div>
               </>
             )}
@@ -295,7 +310,7 @@ export default function Home() {
 
       <footer>
         <em>Lex Populi</em> · superanum.pl · Prawo Narodu · 2025<br />
-        <span style={{ fontSize: '10px', marginTop: '6px', display: 'block' }}>Moderacja: Claude AI · Projekt niekomercyjny · Konsultacje społeczne</span>
+        <span style={{ fontSize: '13px', marginTop: '6px', display: 'block' }}>Moderacja: Claude AI · Projekt niekomercyjny · Konsultacje społeczne</span>
       </footer>
     </>
   )
