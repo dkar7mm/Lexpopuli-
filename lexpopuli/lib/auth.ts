@@ -2,11 +2,13 @@ import NextAuth from 'next-auth'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import Resend from 'next-auth/providers/resend'
 import { db } from './db'
-import { users, verificationTokens } from './schema'
+import { users, accounts, sessions, verificationTokens } from './schema'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
     usersTable: users,
+    accountsTable: accounts,
+    sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
   }),
   providers: [
