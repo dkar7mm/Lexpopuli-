@@ -12,21 +12,28 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Email({
       server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: Number(process.env.EMAIL_SERVER_PORT),
+        host: 'smtp.resend.com',
+        port: 465,
         auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
+          user: 'resend',
+          pass: process.env.RESEND_API_KEY,
         },
       },
-      from: process.env.EMAIL_FROM,
+      from: 'Lex Populi <onboarding@resend.dev>',
       sendVerificationRequest: async ({ identifier: email, url, provider }) => {
-        // Customowy email w stylu Lex Populi
         const { createTransport } = await import('nodemailer')
-        const transport = createTransport(provider.server)
+        const transport = createTransport({
+          host: 'smtp.resend.com',
+          port: 465,
+          secure: true,
+          auth: {
+            user: 'resend',
+            pass: process.env.RESEND_API_KEY,
+          },
+        })
         await transport.sendMail({
           to: email,
-          from: provider.from,
+          from: 'Lex Populi <onboarding@resend.dev>',
           subject: 'Lex Populi — potwierdź swój głos',
           html: `
             <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 40px 20px; background: #F8F6F1; color: #1a1a18;">
