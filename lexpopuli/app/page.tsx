@@ -9,14 +9,29 @@ import { ARTICLES, CHAPTERS } from '@/lib/articles'
 type VoteResults = Record<string, { yesCount: number; noCount: number }>
 type UserVotes = Record<string, 'y' | 'n'>
 
+// Parsuje treść artykułu na osobne punkty Art. 1, Art. 2 itd.
+function parseArticlePoints(text: string): { num: string; content: string }[] {
+  const parts = text.split(/\n\n/).filter(Boolean)
+  return parts.map((part, i) => {
+    const match = part.match(/^(Art\.\s*\d+\.)\s*(.*)$/s)
+    if (match) return { num: match[1], content: match[2].trim() }
+    return { num: '', content: part.trim() }
+  })
+}
+
 export default function Home() {
   const { data: session } = useSession()
   const [activeTab, setActiveTab] = useState('o')
   const [results, setResults] = useState<VoteResults>({})
   const [userVotes, setUserVotes] = useState<UserVotes>({})
   const [total, setTotal] = useState(4287)
-  const [users, setUsers] = useState(1043)
+  const [users] = useState(1043)
+
+  // Trzy poziomy zwijania
   const [collapsedChapters, setCollapsedChapters] = useState<Set<string>>(new Set(CHAPTERS))
+  const [collapsedParagraphs, setCollapsedParagraphs] = useState<Set<string>>(new Set(ARTICLES.map(a => a.id)))
+  const [collapsedPoints, setCollapsedPoints] = useState<Set<string>>(new Set())
+
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
 
@@ -67,6 +82,37 @@ export default function Home() {
       else next.add(ch)
       return next
     })
+  }
+
+  const toggleParagraph = (id: string) => {
+    setCollapsedParagraphs(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const togglePoint = (key: string) => {
+    setCollapsedPoints(prev => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  // Zwiń wszystko
+  const collapseAll = () => {
+    setCollapsedChapters(new Set(CHAPTERS))
+    setCollapsedParagraphs(new Set(ARTICLES.map(a => a.id)))
+    setCollapsedPoints(new Set())
+  }
+
+  // Rozwiń wszystko
+  const expandAll = () => {
+    setCollapsedChapters(new Set())
+    setCollapsedParagraphs(new Set())
   }
 
   const getYPct = (id: string) => {
@@ -133,6 +179,7 @@ export default function Home() {
 
       <main className="container" style={{ paddingTop: '2.5rem', paddingBottom: '3rem' }}>
 
+        {/* O PROJEKCIE */}
         {activeTab === 'o' && (
           <div>
             <div className="sec-label">O projekcie</div>
@@ -154,40 +201,112 @@ export default function Home() {
           </div>
         )}
 
+        {/* KONSTYTUCJA */}
         {activeTab === 'k' && (
           <div>
-            <div className="sec-label">Projekt do konsultacji społecznych · 2025</div>
-            <div className="sec-title">Konstytucja Rzeczypospolitej Polskiej</div>
+            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <div className="sec-label">Projekt do konsultacji społecznych · 2025</div>
+                <div className="sec-title">Konstytucja Rzeczypospolitej Polskiej</div>
+              </div>
+              <div style={{ display: 'flex', gap: '0.75rem' }}>
+                <button onClick={collapseAll} style={{ padding: '6px 16px', border: '1px solid var(--cream-border)', background: 'var(--cream)', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  Zwiń wszystko
+                </button>
+                <button onClick={expandAll} style={{ padding: '6px 16px', border: '1px solid var(--cream-border)', background: 'var(--cream)', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  Rozwiń wszystko
+                </button>
+              </div>
+            </div>
             <div className="thin-rule" />
             {!session && (
               <div className="notify">
                 Czytasz jako gość. <button onClick={() => setActiveTab('d')} style={{ color: 'var(--red)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', textDecoration: 'underline' }}>Zarejestruj się</button> żeby głosować.
               </div>
             )}
+
             {articlesByChapter.map(({ chapter, articles: arts }) => (
               <div key={chapter} className="chapter">
+                {/* NAGŁÓWEK ROZDZIAŁU */}
                 <div className="ch-head" onClick={() => toggleChapter(chapter)}>
                   <div className="ch-title">{chapter}</div>
                   <div className="ch-toggle">{collapsedChapters.has(chapter) ? 'rozwiń ▼' : 'zwiń ▲'}</div>
                 </div>
-                {!collapsedChapters.has(chapter) && (
-                  <div>
-                    {arts.map(art => {
-                      const yp = getYPct(art.id)
-                      const yc = getYCount(art.id)
-                      const nc = getNCount(art.id)
-                      const uv = userVotes[art.id]
-                      return (
-                        <div key={art.id} className="art">
-                          <div className="art-row">
-                            <div className="art-num">{art.paragraph}</div>
-                            <div className="art-body">
-                              {art.title !== 'Preambuła' && <div className="art-title">{art.title}</div>}
-                              <div className="art-text" style={art.id === 'p0' ? { fontStyle: 'italic' } : {}}>{art.text}</div>
-                            </div>
-                            <div className="art-stars">{'★'.repeat(art.stars)}</div>
+
+                {/* PARAGRAFY */}
+                {!collapsedChapters.has(chapter) && arts.map(art => {
+                  const yp = getYPct(art.id)
+                  const yc = getYCount(art.id)
+                  const nc = getNCount(art.id)
+                  const uv = userVotes[art.id]
+                  const points = parseArticlePoints(art.text)
+                  const isCollapsed = collapsedParagraphs.has(art.id)
+
+                  return (
+                    <div key={art.id} style={{ borderBottom: '1px solid var(--cream-dark)', paddingBottom: isCollapsed ? 0 : '0.5rem' }}>
+
+                      {/* NAGŁÓWEK PARAGRAFU */}
+                      <div
+                        onClick={() => toggleParagraph(art.id)}
+                        style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '1rem 0 0.75rem', cursor: 'pointer' }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1 }}>
+                          <div className="art-num">{art.paragraph}</div>
+                          <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '19px', fontWeight: 500, color: 'var(--text)' }}>
+                            {art.title !== 'Preambuła' ? art.title : 'Preambuła'}
                           </div>
-                          <div className="vote-row">
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                          <div className="art-stars">{'★'.repeat(art.stars)}</div>
+                          <div className="ch-toggle">{isCollapsed ? 'rozwiń ▼' : 'zwiń ▲'}</div>
+                        </div>
+                      </div>
+
+                      {/* TREŚĆ PARAGRAFU */}
+                      {!isCollapsed && (
+                        <div style={{ paddingLeft: '0', paddingBottom: '1rem' }}>
+
+                          {/* PUNKTY ARTYKUŁÓW */}
+                          {points.map((point, idx) => {
+                            const pointKey = `${art.id}-${idx}`
+                            const pointCollapsed = collapsedPoints.has(pointKey)
+
+                            if (!point.num) {
+                              // Preambuła lub tekst bez numeracji
+                              return (
+                                <div key={idx} style={{ fontSize: '17px', lineHeight: '1.8', color: 'var(--text-muted)', fontStyle: art.id === 'p0' ? 'italic' : 'normal', padding: '0.5rem 0 0.5rem 4rem' }}>
+                                  {point.content}
+                                </div>
+                              )
+                            }
+
+                            return (
+                              <div key={idx} style={{ borderTop: idx > 0 ? '1px solid var(--cream-dark)' : 'none' }}>
+                                {/* NAGŁÓWEK PUNKTU */}
+                                <div
+                                  onClick={() => togglePoint(pointKey)}
+                                  style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '0.75rem 0 0.5rem 4rem', cursor: 'pointer' }}
+                                >
+                                  <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '14px', letterSpacing: '1px', color: 'var(--text-light)', textTransform: 'uppercase' }}>
+                                    {point.num}
+                                  </div>
+                                  <div style={{ fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: 'var(--text-lighter)' }}>
+                                    {pointCollapsed ? '▼' : '▲'}
+                                  </div>
+                                </div>
+
+                                {/* TREŚĆ PUNKTU */}
+                                {!pointCollapsed && (
+                                  <div style={{ fontSize: '17px', lineHeight: '1.8', color: 'var(--text-muted)', padding: '0 0 0.75rem 4rem' }}>
+                                    {point.content}
+                                  </div>
+                                )}
+                              </div>
+                            )
+                          })}
+
+                          {/* GŁOSOWANIE */}
+                          <div className="vote-row" style={{ paddingLeft: '4rem' }}>
                             {session ? (
                               <>
                                 <button className={`vbtn${uv==='y'?' vy':''}`} onClick={() => handleVote(art.id,'y')}>Za {yc}</button>
@@ -205,15 +324,16 @@ export default function Home() {
                             <div className="vdays">{'★'.repeat(art.stars)} · {art.stars * 7} dni</div>
                           </div>
                         </div>
-                      )
-                    })}
-                  </div>
-                )}
+                      )}
+                    </div>
+                  )
+                })}
               </div>
             ))}
           </div>
         )}
 
+        {/* PORZĄDEK PRAWNY */}
         {activeTab === 'p' && (
           <div>
             <div className="sec-label">Budowany oddolnie przez Naród</div>
@@ -270,6 +390,7 @@ export default function Home() {
           </div>
         )}
 
+        {/* DOŁĄCZ */}
         {activeTab === 'd' && (
           <div>
             <div className="sec-label">Rejestracja</div>
