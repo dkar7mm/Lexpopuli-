@@ -65,13 +65,27 @@ export default function Home() {
     }
   }
 
+  const getCsrfToken = async () => {
+    const res = await fetch('/api/auth/csrf')
+    const data = await res.json()
+    return data.csrfToken || ''
+  }
+
   const handleRegister = async () => {
     if (!email || !email.includes('@')) return
     setRegStatus('sending')
     try {
-      const { signIn } = await import('next-auth/react')
-      await signIn('email', { email, callbackUrl: '/', redirect: false })
-      setRegStatus('sent')
+      const csrfToken = await getCsrfToken()
+      const res = await fetch('/api/auth/signin/resend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ email, callbackUrl: '/', csrfToken }),
+      })
+      if (res.ok || res.redirected || res.status === 302) {
+        setRegStatus('sent')
+      } else {
+        setRegStatus('idle')
+      }
     } catch { setRegStatus('idle') }
   }
 
