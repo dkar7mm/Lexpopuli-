@@ -4,19 +4,32 @@ export const dynamic = 'force-dynamic'
 
 import { useState, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
-import { ARTICLES, CHAPTERS } from '@/lib/articles'
+import { ARTICLES, PARAGRAPHS, CHAPTERS } from '@/lib/articles'
 
 type VoteResults = Record<string, { yesCount: number; noCount: number }>
 type UserVotes = Record<string, 'y' | 'n'>
 
-// Parsuje treść artykułu na osobne punkty Art. 1, Art. 2 itd.
-function parseArticlePoints(text: string): { num: string; content: string }[] {
-  const parts = text.split(/\n\n/).filter(Boolean)
-  return parts.map((part, i) => {
-    const match = part.match(/^(Art\.\s*\d+\.)\s*(.*)$/s)
-    if (match) return { num: match[1], content: match[2].trim() }
-    return { num: '', content: part.trim() }
-  })
+// Oblicz agregację głosów dla paragrafu
+function aggregateParagraph(paragraphId: string, results: VoteResults) {
+  const arts = ARTICLES.filter(a => a.paragraphId === paragraphId)
+  const yes = arts.reduce((s, a) => s + (results[a.id]?.yesCount || 0), 0)
+  const no = arts.reduce((s, a) => s + (results[a.id]?.noCount || 0), 0)
+  return { yes, no, pct: yes + no > 0 ? Math.round(yes / (yes + no) * 100) : 0 }
+}
+
+// Oblicz agregację dla rozdziału
+function aggregateChapter(chapter: string, results: VoteResults) {
+  const arts = ARTICLES.filter(a => a.chapter === chapter)
+  const yes = arts.reduce((s, a) => s + (results[a.id]?.yesCount || 0), 0)
+  const no = arts.reduce((s, a) => s + (results[a.id]?.noCount || 0), 0)
+  return { yes, no, pct: yes + no > 0 ? Math.round(yes / (yes + no) * 100) : 0 }
+}
+
+// Kolor progu akceptacji
+function acceptanceColor(pct: number) {
+  if (pct >= 75) return 'var(--red)'
+  if (pct >= 50) return '#B8860B'
+  return '#1a1a2e'
 }
 
 export default function Home() {
@@ -24,14 +37,10 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('o')
   const [results, setResults] = useState<VoteResults>({})
   const [userVotes, setUserVotes] = useState<UserVotes>({})
-  const [total, setTotal] = useState(4287)
+  const [total, setTotal] = useState(0)
   const [users] = useState(1043)
-
-  // Trzy poziomy zwijania
   const [collapsedChapters, setCollapsedChapters] = useState<Set<string>>(new Set(CHAPTERS))
-  const [collapsedParagraphs, setCollapsedParagraphs] = useState<Set<string>>(new Set(ARTICLES.map(a => a.id)))
-  const [collapsedPoints, setCollapsedPoints] = useState<Set<string>>(new Set())
-
+  const [collapsedParagraphs, setCollapsedParagraphs] = useState<Set<string>>(new Set(PARAGRAPHS.map(p => p.id)))
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
 
@@ -44,7 +53,7 @@ export default function Home() {
         const map: VoteResults = {}
         data.results.forEach((r: any) => { map[r.articleId] = r })
         setResults(map)
-        setTotal(data.total || 4287)
+        setTotal(data.total || 0)
       }
     }).catch(() => {})
   }, [])
@@ -69,17 +78,6 @@ export default function Home() {
     const res = await fetch('/api/auth/csrf')
     const data = await res.json()
     return data.csrfToken || ''
-  }
-
-  const checkCountry = async (): Promise<boolean> => {
-    try {
-      const res = await fetch('/api/votes')
-      // Jeśli API odpowiada to jesteśmy w Polsce (geolokalizacja sprawdzana po stronie serwera)
-      // Sprawdzamy przez dedykowany endpoint
-      const geoRes = await fetch('/api/geo')
-      if (geoRes.status === 403) return false
-      return true
-    } catch { return true }
   }
 
   const handleRegister = async () => {
@@ -118,41 +116,27 @@ export default function Home() {
     })
   }
 
-  const togglePoint = (key: string) => {
-    setCollapsedPoints(prev => {
-      const next = new Set(prev)
-      if (next.has(key)) next.delete(key)
-      else next.add(key)
-      return next
-    })
-  }
-
-  // Zwiń wszystko
   const collapseAll = () => {
     setCollapsedChapters(new Set(CHAPTERS))
-    setCollapsedParagraphs(new Set(ARTICLES.map(a => a.id)))
-    setCollapsedPoints(new Set())
+    setCollapsedParagraphs(new Set(PARAGRAPHS.map(p => p.id)))
   }
 
-  // Rozwiń wszystko
   const expandAll = () => {
     setCollapsedChapters(new Set())
     setCollapsedParagraphs(new Set())
   }
 
-  const getYPct = (id: string) => {
-    const r = results[id]
-    if (!r) return 50
-    const tot = r.yesCount + r.noCount
-    return tot > 0 ? Math.round(r.yesCount / tot * 100) : 50
-  }
-  const getYCount = (id: string) => results[id]?.yesCount ?? Math.floor(Math.random() * 400 + 200)
-  const getNCount = (id: string) => results[id]?.noCount ?? Math.floor(Math.random() * 100 + 10)
-
-  const articlesByChapter = CHAPTERS.map(ch => ({
+  // Grupuj artykuły po paragrafach i rozdziałach
+  const byChapter = CHAPTERS.map(ch => ({
     chapter: ch,
-    articles: ARTICLES.filter(a => a.chapter === ch),
-  })).filter(g => g.articles.length > 0)
+    paragraphs: PARAGRAPHS
+      .filter(p => p.chapter === ch)
+      .sort((a, b) => a.order - b.order)
+      .map(p => ({
+        ...p,
+        articles: ARTICLES.filter(a => a.paragraphId === p.id).sort((a, b) => a.order - b.order),
+      })),
+  })).filter(c => c.paragraphs.length > 0)
 
   return (
     <>
@@ -160,7 +144,7 @@ export default function Home() {
         <div className="container">
           <div className="site-header">
             <div className="logo">Lex <em>Populi</em></div>
-            <div className="tagline">Prawo Narodu · superanum.pl · Polska 2025</div>
+            <div className="tagline">Prawo Narodu · superanum.org · Polska 2025</div>
             <div className="header-rule" />
             <div className="header-desc">
               Ta Konstytucja nie będzie dokumentem państwowym. Będzie nowym kontraktem, na zasadach którego stworzymy to Państwo od nowa. Niech prawo wynika z woli świadomego Narodu — nie z gabinetów politycznych obciążonych grzechami przeszłości.
@@ -182,7 +166,7 @@ export default function Home() {
           <div className="counter-inner">
             <div className="cnt"><div className="cnt-n">{total.toLocaleString('pl-PL')}</div><div className="cnt-l">Głosów łącznie</div></div>
             <div className="cnt"><div className="cnt-n">{users.toLocaleString('pl-PL')}</div><div className="cnt-l">Obywateli</div></div>
-            <div className="cnt"><div className="cnt-n">33</div><div className="cnt-l">Artykułów</div></div>
+            <div className="cnt"><div className="cnt-n">{ARTICLES.length}</div><div className="cnt-l">Artykułów</div></div>
             <div className="prog-wrap">
               <div className="prog-label">Głosy na Konstytucję · {pct}% · {total.toLocaleString('pl-PL')} z {threshold.toLocaleString('pl-PL')}</div>
               <div className="prog"><div className="prog-fill" style={{ width: `${pct}%` }} /></div>
@@ -204,7 +188,6 @@ export default function Home() {
 
       <main className="container" style={{ paddingTop: '2.5rem', paddingBottom: '3rem' }}>
 
-        {/* O PROJEKCIE */}
         {activeTab === 'o' && (
           <div>
             <div className="sec-label">O projekcie</div>
@@ -218,15 +201,14 @@ export default function Home() {
             </div>
             <div className="full-rule" />
             <div className="info-grid">
-              <div className="info-box"><div className="info-box-label">Jak głosować</div><div className="info-box-text">Czytasz projekt artykuł po artykule. Głosujesz za lub przeciw. Wyniki widoczne w czasie rzeczywistym. Jeden głos na osobę na każdy artykuł.</div></div>
-              <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji i nie odwołuje się do instytucji niepowołanych przez Naród.</div></div>
-              <div className="info-box"><div className="info-box-label">Ważność głosowania</div><div className="info-box-text">Od ★ do ★★★★★ gwiazdek ważności. Jedna gwiazdka = 500 głosów lub 7 dni — co pierwsze. Konstytucja zawsze ★★★★★.</div></div>
-              <div className="info-box"><div className="info-box-label">Po {threshold.toLocaleString('pl-PL')} głosów</div><div className="info-box-text">AI zaczyna generować kolejne akty porządku prawnego wynikające z przegłosowanej Konstytucji. Zawsze dwie propozycje do wyboru. Porządek prawny rośnie oddolnie.</div></div>
+              <div className="info-box"><div className="info-box-label">Jak głosować</div><div className="info-box-text">Czytasz każdy artykuł osobno. Głosujesz za lub przeciw. Wyniki widoczne w czasie rzeczywistym i agregowane w górę — artykuł → paragraf → rozdział → Konstytucja.</div></div>
+              <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji.</div></div>
+              <div className="info-box"><div className="info-box-label">Progi akceptacji</div><div className="info-box-text">75%+ za — artykuł przyjęty. 50–75% — kontrowersyjny, wymaga uwagi. Poniżej 50% — do redakcji przez AI.</div></div>
+              <div className="info-box"><div className="info-box-label">Po {threshold.toLocaleString('pl-PL')} głosów</div><div className="info-box-text">AI zaczyna generować kolejne akty porządku prawnego wynikające z przegłosowanej Konstytucji. Zawsze dwie propozycje do wyboru.</div></div>
             </div>
           </div>
         )}
 
-        {/* KONSTYTUCJA */}
         {activeTab === 'k' && (
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '1rem' }}>
@@ -235,12 +217,8 @@ export default function Home() {
                 <div className="sec-title">Konstytucja Rzeczypospolitej Polskiej</div>
               </div>
               <div style={{ display: 'flex', gap: '0.75rem' }}>
-                <button onClick={collapseAll} style={{ padding: '6px 16px', border: '1px solid var(--cream-border)', background: 'var(--cream)', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                  Zwiń wszystko
-                </button>
-                <button onClick={expandAll} style={{ padding: '6px 16px', border: '1px solid var(--cream-border)', background: 'var(--cream)', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                  Rozwiń wszystko
-                </button>
+                <button onClick={collapseAll} style={{ padding: '6px 16px', border: '1px solid var(--cream-border)', background: 'var(--cream)', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>Zwiń wszystko</button>
+                <button onClick={expandAll} style={{ padding: '6px 16px', border: '1px solid var(--cream-border)', background: 'var(--cream)', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>Rozwiń wszystko</button>
               </div>
             </div>
             <div className="thin-rule" />
@@ -250,115 +228,100 @@ export default function Home() {
               </div>
             )}
 
-            {articlesByChapter.map(({ chapter, articles: arts }) => (
-              <div key={chapter} className="chapter">
-                {/* NAGŁÓWEK ROZDZIAŁU */}
-                <div className="ch-head" onClick={() => toggleChapter(chapter)}>
-                  <div className="ch-title">{chapter}</div>
-                  <div className="ch-toggle">{collapsedChapters.has(chapter) ? 'rozwiń ▼' : 'zwiń ▲'}</div>
-                </div>
-
-                {/* PARAGRAFY */}
-                {!collapsedChapters.has(chapter) && arts.map(art => {
-                  const yp = getYPct(art.id)
-                  const yc = getYCount(art.id)
-                  const nc = getNCount(art.id)
-                  const uv = userVotes[art.id]
-                  const points = parseArticlePoints(art.text)
-                  const isCollapsed = collapsedParagraphs.has(art.id)
-
-                  return (
-                    <div key={art.id} style={{ borderBottom: '1px solid var(--cream-dark)', paddingBottom: isCollapsed ? 0 : '0.5rem' }}>
-
-                      {/* NAGŁÓWEK PARAGRAFU */}
-                      <div
-                        onClick={() => toggleParagraph(art.id)}
-                        style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '1rem 0 0.75rem', cursor: 'pointer' }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1 }}>
-                          <div className="art-num">{art.paragraph}</div>
-                          <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '19px', fontWeight: 500, color: 'var(--text)' }}>
-                            {art.title !== 'Preambuła' ? art.title : 'Preambuła'}
-                          </div>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                          <div className="art-stars">{'★'.repeat(art.stars)}</div>
-                          <div className="ch-toggle">{isCollapsed ? 'rozwiń ▼' : 'zwiń ▲'}</div>
-                        </div>
-                      </div>
-
-                      {/* TREŚĆ PARAGRAFU */}
-                      {!isCollapsed && (
-                        <div style={{ paddingLeft: '0', paddingBottom: '1rem' }}>
-
-                          {/* PUNKTY ARTYKUŁÓW */}
-                          {points.map((point, idx) => {
-                            const pointKey = `${art.id}-${idx}`
-                            const pointCollapsed = collapsedPoints.has(pointKey)
-
-                            if (!point.num) {
-                              // Preambuła lub tekst bez numeracji
-                              return (
-                                <div key={idx} style={{ fontSize: '17px', lineHeight: '1.8', color: 'var(--text-muted)', fontStyle: art.id === 'p0' ? 'italic' : 'normal', padding: '0.5rem 0 0.5rem 4rem' }}>
-                                  {point.content}
-                                </div>
-                              )
-                            }
-
-                            return (
-                              <div key={idx} style={{ borderTop: idx > 0 ? '1px solid var(--cream-dark)' : 'none' }}>
-                                {/* NAGŁÓWEK PUNKTU */}
-                                <div
-                                  onClick={() => togglePoint(pointKey)}
-                                  style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '0.75rem 0 0.5rem 4rem', cursor: 'pointer' }}
-                                >
-                                  <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '14px', letterSpacing: '1px', color: 'var(--text-light)', textTransform: 'uppercase' }}>
-                                    {point.num}
-                                  </div>
-                                  <div style={{ fontSize: '11px', letterSpacing: '1px', textTransform: 'uppercase', color: 'var(--text-lighter)' }}>
-                                    {pointCollapsed ? '▼' : '▲'}
-                                  </div>
-                                </div>
-
-                                {/* TREŚĆ PUNKTU */}
-                                {!pointCollapsed && (
-                                  <div style={{ fontSize: '17px', lineHeight: '1.8', color: 'var(--text-muted)', padding: '0 0 0.75rem 4rem' }}>
-                                    {point.content}
-                                  </div>
-                                )}
-                              </div>
-                            )
-                          })}
-
-                          {/* GŁOSOWANIE */}
-                          <div className="vote-row" style={{ paddingLeft: '4rem' }}>
-                            {session ? (
-                              <>
-                                <button className={`vbtn${uv==='y'?' vy':''}`} onClick={() => handleVote(art.id,'y')}>Za {yc}</button>
-                                <button className={`vbtn${uv==='n'?' vn':''}`} onClick={() => handleVote(art.id,'n')}>Przeciw {nc}</button>
-                                <div className="vbar"><div className="vbar-y" style={{ width: `${yp}%` }} /><div className="vbar-n" style={{ width: `${100-yp}%` }} /></div>
-                                <div className="vpct">{yp}% za</div>
-                              </>
-                            ) : (
-                              <>
-                                <div className="vbar" style={{ flex: 1 }}><div className="vbar-y" style={{ width: `${yp}%` }} /><div className="vbar-n" style={{ width: `${100-yp}%` }} /></div>
-                                <div className="vpct">{yp}% za · {yc+nc} głosów</div>
-                                <div className="vote-login-note"><a href="#" onClick={e => { e.preventDefault(); setActiveTab('d') }}>Zaloguj się</a> żeby głosować</div>
-                              </>
-                            )}
-                            <div className="vdays">{'★'.repeat(art.stars)} · {art.stars * 7} dni</div>
-                          </div>
+            {byChapter.map(({ chapter, paragraphs }) => {
+              const chAgg = aggregateChapter(chapter, results)
+              return (
+                <div key={chapter} className="chapter">
+                  {/* NAGŁÓWEK ROZDZIAŁU z agregacją */}
+                  <div className="ch-head" onClick={() => toggleChapter(chapter)}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1 }}>
+                      <div className="ch-title">{chapter}</div>
+                      {chAgg.yes + chAgg.no > 0 && (
+                        <div style={{ fontSize: '13px', color: acceptanceColor(chAgg.pct), fontFamily: 'Cormorant Garamond, serif' }}>
+                          {chAgg.pct}% za ({chAgg.yes + chAgg.no} głosów)
                         </div>
                       )}
                     </div>
-                  )
-                })}
-              </div>
-            ))}
+                    <div className="ch-toggle">{collapsedChapters.has(chapter) ? 'rozwiń ▼' : 'zwiń ▲'}</div>
+                  </div>
+
+                  {!collapsedChapters.has(chapter) && paragraphs.map(para => {
+                    const pAgg = aggregateParagraph(para.id, results)
+                    const isCollapsed = collapsedParagraphs.has(para.id)
+
+                    return (
+                      <div key={para.id} style={{ borderBottom: '1px solid var(--cream-dark)' }}>
+                        {/* NAGŁÓWEK PARAGRAFU z agregacją */}
+                        <div onClick={() => toggleParagraph(para.id)} style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '1rem 0 0.75rem 1rem', cursor: 'pointer' }}>
+                          <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1 }}>
+                            <div className="art-num">{para.paragraph}</div>
+                            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '18px', fontWeight: 500 }}>{para.title}</div>
+                            {pAgg.yes + pAgg.no > 0 && (
+                              <div style={{ fontSize: '12px', color: acceptanceColor(pAgg.pct), fontFamily: 'Cormorant Garamond, serif' }}>
+                                {pAgg.pct}% za
+                              </div>
+                            )}
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <div className="art-stars">{'★'.repeat(para.stars)}</div>
+                            <div className="ch-toggle">{isCollapsed ? 'rozwiń ▼' : 'zwiń ▲'}</div>
+                          </div>
+                        </div>
+
+                        {/* ARTYKUŁY */}
+                        {!isCollapsed && (
+                          <div style={{ paddingLeft: '1rem', paddingBottom: '0.5rem' }}>
+                            {para.articles.map(art => {
+                              const r = results[art.id]
+                              const yc = r?.yesCount || 0
+                              const nc = r?.noCount || 0
+                              const yp = yc + nc > 0 ? Math.round(yc / (yc + nc) * 100) : 0
+                              const uv = userVotes[art.id]
+                              const isPreamble = art.paragraphId === 'p0'
+
+                              return (
+                                <div key={art.id} className="art" style={{ paddingLeft: '1rem' }}>
+                                  <div className="art-row">
+                                    {art.artNum && <div className="art-num" style={{ color: 'var(--text-light)', fontSize: '12px' }}>{art.artNum}</div>}
+                                    <div className="art-body">
+                                      <div className="art-text" style={isPreamble ? { fontStyle: 'italic' } : {}}>{art.text}</div>
+                                    </div>
+                                  </div>
+                                  <div className="vote-row" style={{ paddingLeft: art.artNum ? '4rem' : 0 }}>
+                                    {session ? (
+                                      <>
+                                        <button className={`vbtn${uv==='y'?' vy':''}`} onClick={() => handleVote(art.id,'y')}>Za {yc > 0 ? yc : ''}</button>
+                                        <button className={`vbtn${uv==='n'?' vn':''}`} onClick={() => handleVote(art.id,'n')}>Przeciw {nc > 0 ? nc : ''}</button>
+                                        <div className="vbar"><div className="vbar-y" style={{ width: `${yp}%` }} /><div className="vbar-n" style={{ width: `${100-yp}%` }} /></div>
+                                        {yc + nc > 0 && <div className="vpct" style={{ color: acceptanceColor(yp) }}>{yp}% za</div>}
+                                      </>
+                                    ) : (
+                                      <>
+                                        {yc + nc > 0 && (
+                                          <>
+                                            <div className="vbar" style={{ flex: 1 }}><div className="vbar-y" style={{ width: `${yp}%` }} /><div className="vbar-n" style={{ width: `${100-yp}%` }} /></div>
+                                            <div className="vpct" style={{ color: acceptanceColor(yp) }}>{yp}% za · {yc+nc} głosów</div>
+                                          </>
+                                        )}
+                                        <div className="vote-login-note"><a href="#" onClick={e => { e.preventDefault(); setActiveTab('d') }}>Zaloguj się</a> żeby głosować</div>
+                                      </>
+                                    )}
+                                    <div className="vdays">{'★'.repeat(art.stars)} · {art.stars * 7} dni</div>
+                                  </div>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })}
           </div>
         )}
 
-        {/* PORZĄDEK PRAWNY */}
         {activeTab === 'p' && (
           <div>
             <div className="sec-label">Budowany oddolnie przez Naród</div>
@@ -415,7 +378,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* DOŁĄCZ */}
         {activeTab === 'd' && (
           <div>
             <div className="sec-label">Rejestracja</div>
@@ -455,7 +417,7 @@ export default function Home() {
       </main>
 
       <footer>
-        <em>Lex Populi</em> · superanum.pl · Prawo Narodu · 2025<br />
+        <em>Lex Populi</em> · superanum.org · Prawo Narodu · 2025<br />
         <span style={{ fontSize: '13px', marginTop: '6px', display: 'block' }}>Moderacja: Claude AI · Projekt niekomercyjny · Konsultacje społeczne</span>
       </footer>
     </>
