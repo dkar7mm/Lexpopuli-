@@ -71,6 +71,17 @@ export default function Home() {
     return data.csrfToken || ''
   }
 
+  const checkCountry = async (): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/votes')
+      // Jeśli API odpowiada to jesteśmy w Polsce (geolokalizacja sprawdzana po stronie serwera)
+      // Sprawdzamy przez dedykowany endpoint
+      const geoRes = await fetch('/api/geo')
+      if (geoRes.status === 403) return false
+      return true
+    } catch { return true }
+  }
+
   const handleRegister = async () => {
     if (!email || !email.includes('@')) return
     setRegStatus('sending')

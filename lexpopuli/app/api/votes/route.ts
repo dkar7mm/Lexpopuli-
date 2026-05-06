@@ -12,8 +12,20 @@ const voteSchema = z.object({
   vote: z.enum(['y', 'n']),
 })
 
+function isFromPoland(req: NextRequest): boolean {
+  const country = req.headers.get('x-vercel-ip-country')
+  // W trybie deweloperskim (localhost) country jest null — przepuszczamy
+  if (!country) return true
+  return country === 'PL'
+}
+
 export async function POST(req: NextRequest) {
   try {
+    // Sprawdź geolokalizację
+    if (!isFromPoland(req)) {
+      return NextResponse.json({ error: 'Głosowanie dostępne wyłącznie z terytorium Rzeczypospolitej Polskiej.' }, { status: 403 })
+    }
+
     const session = await auth()
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Musisz być zalogowany żeby głosować.' }, { status: 401 })
@@ -32,12 +44,10 @@ export async function POST(req: NextRequest) {
       if (existing.vote === vote) {
         return NextResponse.json({ error: 'Już oddałeś ten głos.' }, { status: 400 })
       }
-      // Zmiana głosu
       await db.update(votes)
         .set({ vote })
         .where(and(eq(votes.userId, userId), eq(votes.articleId, articleId)))
 
-      // Zaktualizuj cache wyników
       const results = await db.query.voteResults.findFirst({
         where: eq(voteResults.articleId, articleId),
       })
@@ -49,10 +59,8 @@ export async function POST(req: NextRequest) {
         }).where(eq(voteResults.articleId, articleId))
       }
     } else {
-      // Nowy głos
       await db.insert(votes).values({ userId, articleId, vote })
 
-      // Zaktualizuj cache wyników
       const results = await db.query.voteResults.findFirst({
         where: eq(voteResults.articleId, articleId),
       })
@@ -71,7 +79,6 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Zwróć aktualne wyniki
     const updated = await db.query.voteResults.findFirst({
       where: eq(voteResults.articleId, articleId),
     })
@@ -93,7 +100,6 @@ export async function GET(req: NextRequest) {
   const articleId = searchParams.get('articleId')
 
   if (!articleId) {
-    // Zwróć wszystkie wyniki
     const results = await db.query.voteResults.findMany()
     const total = results.reduce((sum, r) => sum + r.yesCount + r.noCount, 0)
     return NextResponse.json({ results, total })
