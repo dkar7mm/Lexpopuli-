@@ -237,8 +237,8 @@ export default function Home() {
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1 }}>
                       <div className="ch-title">{chapter}</div>
                       {chAgg.yes + chAgg.no > 0 && (
-                        <div style={{ fontSize: '13px', color: acceptanceColor(chAgg.pct), fontFamily: 'Cormorant Garamond, serif' }}>
-                          {chAgg.pct}% za ({chAgg.yes + chAgg.no} głosów)
+                        <div style={{ fontSize: '16px', color: acceptanceColor(chAgg.pct), fontFamily: 'Cormorant Garamond, serif', fontWeight: 500 }}>
+                          {chAgg.pct}% za · {chAgg.yes + chAgg.no} głosów
                         </div>
                       )}
                     </div>
@@ -257,8 +257,8 @@ export default function Home() {
                             <div className="art-num">{para.paragraph}</div>
                             <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '18px', fontWeight: 500 }}>{para.title}</div>
                             {pAgg.yes + pAgg.no > 0 && (
-                              <div style={{ fontSize: '12px', color: acceptanceColor(pAgg.pct), fontFamily: 'Cormorant Garamond, serif' }}>
-                                {pAgg.pct}% za
+                              <div style={{ fontSize: '15px', color: acceptanceColor(pAgg.pct), fontFamily: 'Cormorant Garamond, serif', fontWeight: 500 }}>
+                                {pAgg.pct}% za · {pAgg.yes + pAgg.no} głosów
                               </div>
                             )}
                           </div>
@@ -290,10 +290,10 @@ export default function Home() {
                                   <div className="vote-row" style={{ paddingLeft: art.artNum ? '4rem' : 0 }}>
                                     {session ? (
                                       <>
-                                        <button className={`vbtn${uv==='y'?' vy':''}`} onClick={() => handleVote(art.id,'y')}>Za {yc > 0 ? yc : ''}</button>
-                                        <button className={`vbtn${uv==='n'?' vn':''}`} onClick={() => handleVote(art.id,'n')}>Przeciw {nc > 0 ? nc : ''}</button>
+                                        <button className={`vbtn${uv==='y'?' vy':''}`} onClick={() => handleVote(art.id,'y')}>Za {yc > 0 && <span style={{marginLeft:'4px',opacity:0.8}}>{yc}</span>}</button>
+                                        <button className={`vbtn${uv==='n'?' vn':''}`} onClick={() => handleVote(art.id,'n')}>Przeciw {nc > 0 && <span style={{marginLeft:'4px',opacity:0.8}}>{nc}</span>}</button>
                                         <div className="vbar"><div className="vbar-y" style={{ width: `${yp}%` }} /><div className="vbar-n" style={{ width: `${100-yp}%` }} /></div>
-                                        {yc + nc > 0 && <div className="vpct" style={{ color: acceptanceColor(yp) }}>{yp}% za</div>}
+                                        <div className="vpct" style={{ color: yc + nc > 0 ? acceptanceColor(yp) : 'var(--text-lighter)' }}>{yc + nc > 0 ? `${yp}% za` : '—'}</div>
                                       </>
                                     ) : (
                                       <>
