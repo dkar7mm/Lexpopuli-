@@ -82,6 +82,10 @@ export const generatedLaw = pgTable('generated_law', {
   stars: integer('stars').notNull().default(3),
   status: text('status').notNull().default('voting'), // 'voting', 'closed', 'archived'
   winnerId: text('winner_id'), // 'a' lub 'b'
+  // Referencje do polskiego prawa (tylko numery, bez treści)
+  replacesRefs: text('replaces_refs'), // JSON array - przepisy zastępowane
+  updatesRefs: text('updates_refs'),   // JSON array - przepisy do nowelizacji
+  obsoletesRefs: text('obsoletes_refs'), // JSON array - przepisy dezaktualizowane
   createdAt: timestamp('created_at').defaultNow(),
   closedAt: timestamp('closed_at'),
 })

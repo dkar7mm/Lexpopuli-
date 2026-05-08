@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { db } from '@/lib/db'
@@ -5,47 +7,65 @@ import { voteResults, generatedLaw, articles } from '@/lib/schema'
 import { sql, eq } from 'drizzle-orm'
 
 const client = new Anthropic()
+const THRESHOLD = parseInt(process.env.NEXT_PUBLIC_THRESHOLD || '1000000')
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'dkarnat@gmail.com'
 
-const THRESHOLD = parseInt(process.env.NEXT_PUBLIC_THRESHOLD || '10000')
+// Pobierz powiązane akty prawne z API Sejmu
+async function searchSejmAPI(keywords: string): Promise<string[]> {
+  try {
+    const encoded = encodeURIComponent(keywords)
+    const res = await fetch(
+      `https://api.sejm.gov.pl/eli/acts/search?title=${encoded}&status=obowi%C4%85zuj%C4%85cy&limit=5`,
+      { headers: { 'Accept': 'application/json' } }
+    )
+    if (!res.ok) return []
+    const data = await res.json()
+    const items = data.items || []
+    return items.map((item: any) => item.displayAddress || item.ELI).filter(Boolean)
+  } catch {
+    return []
+  }
+}
 
-// System prompt dla Claude jako Strażnika Ducha Konstytucji
 const SYSTEM_PROMPT = `Jesteś AI moderatorem platformy Lex Populi — strażnikiem ducha Konstytucji Rzeczypospolitej Polskiej.
 
 Twoja rola:
-1. Generujesz DWIE propozycje przepisów prawnych niższego rzędu, które logicznie wynikają z przegłosowanego artykułu Konstytucji
+1. Generujesz DWIE propozycje przepisów prawnych niższego rzędu wynikające z przegłosowanego artykułu Konstytucji
 2. Każda propozycja musi być spójna z już przegłosowanymi przepisami wyższego rzędu
-3. NIE odwołujesz się do instytucji, organów ani bytów prawnych które nie zostały jeszcze powołane przez Naród w przegłosowanych przepisach
-4. NIE zakładasz istnienia starych instytucji (GUS, NBP, ministerstwa itp.) dopóki Naród ich nie powoła na nowo
-5. Filozofia: państwo minimum (Milton Friedman) — jak najmniej biurokracji, jak najwięcej wolności
-6. Jedna propozycja może być bardziej liberalna, druga bardziej wspólnotowa — ale obie muszą szanować ducha Konstytucji
+3. NIE odwołujesz się do instytucji niepowołanych jeszcze przez Naród
+4. Filozofia: państwo minimum — jak najmniej biurokracji, jak najwięcej wolności
+5. Wskazujesz które przepisy obecnego prawa tracą moc lub wymagają nowelizacji — TYLKO numery, bez cytowania treści
 
-Format odpowiedzi — TYLKO JSON, bez żadnego wstępu ani komentarza:
+Format odpowiedzi — TYLKO JSON:
 {
   "title": "Krótki tytuł przepisu",
   "level": "kodeks|ustawa|rozporzadzenie",
   "stars": 1-5,
   "proposalA": {
     "label": "Krótka etykieta (3-5 słów)",
-    "text": "Pełna treść propozycji A (2-4 zdania, precyzyjne, bez gumowych sformułowań)"
+    "text": "Pełna treść propozycji A (2-4 zdania)"
   },
   "proposalB": {
     "label": "Krótka etykieta (3-5 słów)",
-    "text": "Pełna treść propozycji B (2-4 zdania, precyzyjne, bez gumowych sformułowań)"
+    "text": "Pełna treść propozycji B (2-4 zdania)"
   },
-  "difference": "Jedno zdanie wyjaśniające czym różnią się propozycje"
+  "difference": "Jedno zdanie o różnicy między propozycjami",
+  "replaces": ["Dz.U. XXXX poz. YYY art. Z"],
+  "updates": ["Dz.U. XXXX poz. YYY"],
+  "obsoletes": ["Dz.U. XXXX poz. YYY"]
 }`
 
 export async function POST(req: NextRequest) {
   try {
-    // Sprawdź czy próg osiągnięty
+    // Sprawdź próg
     const totalResult = await db.select({
       total: sql<number>`sum(yes_count + no_count)`
     }).from(voteResults)
-
     const total = totalResult[0]?.total || 0
+
     if (total < THRESHOLD) {
       return NextResponse.json({
-        error: `Próg ${THRESHOLD} głosów nie osiągnięty. Aktualnie: ${total}`,
+        error: `Próg ${THRESHOLD.toLocaleString('pl-PL')} głosów nie osiągnięty.`,
         total,
         threshold: THRESHOLD,
       }, { status: 403 })
@@ -53,7 +73,6 @@ export async function POST(req: NextRequest) {
 
     const { articleId, context } = await req.json()
 
-    // Pobierz artykuł bazowy
     const article = await db.query.articles.findFirst({
       where: eq(articles.id, articleId),
     })
@@ -61,28 +80,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Artykuł nie znaleziony.' }, { status: 404 })
     }
 
-    // Pobierz już przegłosowane przepisy jako kontekst
+    // Pobierz powiązane akty z API Sejmu
+    const sejmRefs = await searchSejmAPI(article.title)
+    const sejmContext = sejmRefs.length > 0
+      ? `\n\nPowiązane akty prawne z bazy ISAP (do wskazania jako zastępowane/dezaktualizowane):\n${sejmRefs.join('\n')}`
+      : ''
+
+    // Pobierz już przegłosowane przepisy
     const existingLaws = await db.query.generatedLaw.findMany({
       where: eq(generatedLaw.status, 'closed'),
     })
-
-    const contextText = existingLaws.length > 0
-      ? `\n\nJuż przegłosowane przepisy niższego rzędu:\n${existingLaws.map(l => `- ${l.title}: ${l.winnerId === 'a' ? l.proposalA : l.proposalB}`).join('\n')}`
+    const existingContext = existingLaws.length > 0
+      ? `\n\nJuż przegłosowane przepisy:\n${existingLaws.map(l => `- ${l.title}`).join('\n')}`
       : ''
 
-    const prompt = `Na podstawie następującego artykułu Konstytucji RP:
+    const prompt = `Artykuł Konstytucji RP:
+${article.paragraph} — ${article.title}
+${article.text}
+${existingContext}
+${sejmContext}
+${context ? `\nDodatkowy kontekst: ${context}` : ''}
 
-ARTYKUŁ: ${article.paragraph} — ${article.title}
-TREŚĆ: ${article.text}
-${contextText}
-
-${context ? `Dodatkowy kontekst: ${context}` : ''}
-
-Wygeneruj dwie propozycje przepisu prawnego który bezpośrednio wynika z tego artykułu. Określ też poziom aktu prawnego (kodeks/ustawa/rozporządzenie) i ważność (1-5 gwiazdek).`
+Wygeneruj dwie propozycje przepisu który wynika z tego artykułu. Wskaż powiązane akty obecnego prawa.`
 
     const response = await client.messages.create({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
+      max_tokens: 1500,
       system: SYSTEM_PROMPT,
       messages: [{ role: 'user', content: prompt }],
     })
@@ -91,7 +114,6 @@ Wygeneruj dwie propozycje przepisu prawnego który bezpośrednio wynika z tego a
     const clean = text.replace(/```json|```/g, '').trim()
     const parsed = JSON.parse(clean)
 
-    // Zapisz do bazy
     const [inserted] = await db.insert(generatedLaw).values({
       parentArticleId: articleId,
       level: parsed.level,
@@ -102,7 +124,12 @@ Wygeneruj dwie propozycje przepisu prawnego który bezpośrednio wynika z tego a
       status: 'voting',
     }).returning()
 
-    return NextResponse.json({ success: true, law: inserted, parsed })
+    return NextResponse.json({
+      success: true,
+      law: inserted,
+      parsed,
+      sejmRefs,
+    })
 
   } catch (error) {
     console.error('AI generation error:', error)
