@@ -2,8 +2,8 @@ name: Daily Backup
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # Codziennie o 2:00 UTC
-  workflow_dispatch:       # Możliwość ręcznego uruchomienia
+    - cron: '0 2 * * *'
+  workflow_dispatch:
 
 jobs:
   backup:
@@ -21,9 +21,11 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
+        working-directory: lexpopuli
         run: npm install @neondatabase/serverless dotenv
 
       - name: Run backup
+        working-directory: lexpopuli
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: node backup.mjs
@@ -32,6 +34,6 @@ jobs:
         run: |
           git config --global user.name 'Lex Populi Backup'
           git config --global user.email 'backup@superanum.org'
-          git add backups/
+          git add lexpopuli/backups/
           git diff --staged --quiet || git commit -m "backup: $(date +%Y-%m-%d)"
           git push
