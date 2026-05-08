@@ -179,7 +179,7 @@ export default function Home() {
       <nav className="site-nav">
         <div className="container">
           <div className="nav-inner">
-            {[['o','O projekcie'],['k','Konstytucja'],['p','Porządek prawny'],['d','Dołącz']].map(([id,label]) => (
+            {[['o','O projekcie'],['i','Jak to działa'],['k','Konstytucja'],['p','Porządek prawny'],['d','Dołącz']].map(([id,label]) => (
               <button key={id} className={`ntab${activeTab===id?' active':''}`} onClick={() => setActiveTab(id)}>{label}</button>
             ))}
           </div>
@@ -205,6 +205,42 @@ export default function Home() {
               <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji.</div></div>
               <div className="info-box"><div className="info-box-label">Progi akceptacji</div><div className="info-box-text">75%+ za — artykuł przyjęty. 50–75% — kontrowersyjny, wymaga uwagi. Poniżej 50% — do redakcji przez AI.</div></div>
               <div className="info-box"><div className="info-box-label">Po {threshold.toLocaleString('pl-PL')} głosów</div><div className="info-box-text">AI zaczyna generować kolejne akty porządku prawnego wynikające z przegłosowanej Konstytucji. Zawsze dwie propozycje do wyboru.</div></div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'i' && (
+          <div>
+            <div className="sec-label">Instrukcja</div>
+            <div className="sec-title">Jak działa Lex Populi?</div>
+            <div className="thin-rule" />
+            <div className="manifest" style={{ marginBottom: '2rem' }}>
+              <p>Lex Populi to platforma konsultacji społecznych gdzie każdy obywatel Polski może wyrazić swoją opinię na temat projektu nowej Konstytucji Rzeczypospolitej Polskiej.</p>
+            </div>
+            <div className="info-grid" style={{ marginBottom: '2rem' }}>
+              <div className="info-box">
+                <div className="info-box-label">Krok 1 — Zarejestruj się</div>
+                <div className="info-box-text">Podaj swój adres email. Otrzymasz link weryfikacyjny. Kliknij go — i gotowe. Jedno konto na jeden adres email. Rejestracja dostępna wyłącznie z terytorium Polski.</div>
+              </div>
+              <div className="info-box">
+                <div className="info-box-label">Krok 2 — Czytaj i głosuj</div>
+                <div className="info-box-text">Przejdź do zakładki Konstytucja. Rozwijaj rozdziały i paragrafy. Pod każdym artykułem znajdziesz przyciski Za i Przeciw. Jeden głos na artykuł.</div>
+              </div>
+              <div className="info-box">
+                <div className="info-box-label">Krok 3 — Obserwuj wyniki</div>
+                <div className="info-box-text">Wyniki są widoczne w czasie rzeczywistym. Głosy sumują się od artykułu w górę — przez paragraf i rozdział — aż do całej Konstytucji.</div>
+              </div>
+              <div className="info-box">
+                <div className="info-box-label">Co dalej?</div>
+                <div className="info-box-text">Po zebraniu 1 000 000 głosów na Konstytucję — AI zaczyna generować kolejne akty porządku prawnego i poddawać je pod głosowanie. Porządek prawny budowany jest od nowa.</div>
+              </div>
+            </div>
+            <div className="full-rule" />
+            <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.85' }}>
+              <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Progi akceptacji</strong> — każdy artykuł jest oceniany: 75% i więcej głosów Za oznacza akceptację, 50–75% to artykuł kontrowersyjny wymagający uwagi, poniżej 50% to artykuł do redakcji.</p>
+              <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Kto moderuje?</strong> — Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy nowy przepis wynika z ducha Konstytucji i nie odwołuje się do instytucji niepowołanych jeszcze przez Naród.</p>
+              <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Dlaczego tylko z Polski?</strong> — Konstytucja dotyczy Narodu Polskiego. Głosować mogą wyłącznie osoby przebywające na terytorium Rzeczypospolitej.</p>
+              <p><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Czy mój głos jest anonimowy?</strong> — Tak. Email służy wyłącznie weryfikacji że jedna osoba nie głosuje wielokrotnie. Treść głosów nie jest powiązana z adresem email.</p>
             </div>
           </div>
         )}
