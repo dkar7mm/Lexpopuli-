@@ -1,0 +1,37 @@
+name: Daily Backup
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Codziennie o 2:00 UTC
+  workflow_dispatch:       # Możliwość ręcznego uruchomienia
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.BACKUP_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install @neondatabase/serverless dotenv
+
+      - name: Run backup
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: node backup.mjs
+
+      - name: Commit and push backup
+        run: |
+          git config --global user.name 'Lex Populi Backup'
+          git config --global user.email 'backup@superanum.org'
+          git add backups/
+          git diff --staged --quiet || git commit -m "backup: $(date +%Y-%m-%d)"
+          git push
