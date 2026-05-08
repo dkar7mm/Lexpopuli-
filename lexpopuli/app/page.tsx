@@ -41,6 +41,7 @@ export default function Home() {
   const [users] = useState(1043)
   const [collapsedChapters, setCollapsedChapters] = useState<Set<string>>(new Set(CHAPTERS))
   const [collapsedParagraphs, setCollapsedParagraphs] = useState<Set<string>>(new Set(PARAGRAPHS.map(p => p.id)))
+  const [adminStatus, setAdminStatus] = useState<{isAdmin: boolean, thresholdReached: boolean, redactionEnabled: boolean} | null>(null)
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
 
@@ -56,7 +57,24 @@ export default function Home() {
         setTotal(data.total || 0)
       }
     }).catch(() => {})
+    // Sprawdź status admina
+    fetch('/api/admin').then(r => r.json()).then(data => {
+      setAdminStatus(data)
+    }).catch(() => {})
   }, [])
+
+  const handleEnableRedaction = async () => {
+    if (!confirm('Uruchomić redakcję porządku prawnego? AI zacznie generować przepisy na podstawie Konstytucji.')) return
+    const res = await fetch('/api/admin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'enable_redaction' }),
+    })
+    const data = await res.json()
+    if (data.success) {
+      setAdminStatus(prev => prev ? { ...prev, redactionEnabled: true } : null)
+    }
+  }
 
   const handleVote = async (articleId: string, vote: 'y' | 'n') => {
     if (!session) { setActiveTab('d'); return }
@@ -155,6 +173,20 @@ export default function Home() {
                 <button onClick={() => signOut()} style={{ color: 'var(--red)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '15px', fontFamily: 'inherit' }}>
                   Wyloguj
                 </button>
+              </div>
+            )}
+            {adminStatus?.isAdmin && (
+              <div style={{ marginTop: '1rem', padding: '1rem 1.25rem', background: adminStatus.redactionEnabled ? '#F0FBF0' : adminStatus.thresholdReached ? '#FBF5F5' : 'var(--cream-dark)', border: `1px solid ${adminStatus.redactionEnabled ? '#4CAF50' : adminStatus.thresholdReached ? 'var(--red)' : 'var(--cream-border)'}`, fontSize: '14px' }}>
+                <strong>Panel admina</strong> · Głosów: {total.toLocaleString('pl-PL')} / {threshold.toLocaleString('pl-PL')}
+                {adminStatus.redactionEnabled ? (
+                  <span style={{ marginLeft: '1rem', color: '#2E7D32' }}>✓ Redakcja porządku prawnego uruchomiona</span>
+                ) : adminStatus.thresholdReached ? (
+                  <button onClick={handleEnableRedaction} style={{ marginLeft: '1rem', padding: '6px 20px', background: 'var(--red)', color: 'var(--cream)', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '13px', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                    Uruchom redakcję porządku prawnego
+                  </button>
+                ) : (
+                  <span style={{ marginLeft: '1rem', color: 'var(--text-light)' }}>Przycisk aktywny po osiągnięciu {threshold.toLocaleString('pl-PL')} głosów</span>
+                )}
               </div>
             )}
           </div>

@@ -90,6 +90,13 @@ export const generatedLaw = pgTable('generated_law', {
   closedAt: timestamp('closed_at'),
 })
 
+// Ustawienia systemu (flagi admina)
+export const settings = pgTable('settings', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+})
+
 // Głosy na akty AI
 export const aiVotes = pgTable('ai_votes', {
   id: serial('id').primaryKey(),
