@@ -10,18 +10,17 @@ import { z } from 'zod'
 const voteSchema = z.object({
   articleId: z.string().min(1),
   vote: z.enum(['y', 'n']),
+  comment: z.string().max(280).optional(),
 })
 
 function isFromPoland(req: NextRequest): boolean {
   const country = req.headers.get('x-vercel-ip-country')
-  // W trybie deweloperskim (localhost) country jest null — przepuszczamy
   if (!country) return true
   return country === 'PL'
 }
 
 export async function POST(req: NextRequest) {
   try {
-    // Sprawdź geolokalizację
     if (!isFromPoland(req)) {
       return NextResponse.json({ error: 'Głosowanie dostępne wyłącznie z terytorium Rzeczypospolitej Polskiej.' }, { status: 403 })
     }
@@ -32,20 +31,19 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const { articleId, vote } = voteSchema.parse(body)
+    const { articleId, vote, comment } = voteSchema.parse(body)
     const userId = session.user.id
 
-    // Sprawdź czy już głosował
     const existing = await db.query.votes.findFirst({
       where: and(eq(votes.userId, userId), eq(votes.articleId, articleId)),
     })
 
     if (existing) {
-      if (existing.vote === vote) {
+      if (existing.vote === vote && existing.comment === (comment || null)) {
         return NextResponse.json({ error: 'Już oddałeś ten głos.' }, { status: 400 })
       }
       await db.update(votes)
-        .set({ vote })
+        .set({ vote, comment: comment || null })
         .where(and(eq(votes.userId, userId), eq(votes.articleId, articleId)))
 
       const results = await db.query.voteResults.findFirst({
@@ -59,7 +57,7 @@ export async function POST(req: NextRequest) {
         }).where(eq(voteResults.articleId, articleId))
       }
     } else {
-      await db.insert(votes).values({ userId, articleId, vote })
+      await db.insert(votes).values({ userId, articleId, vote, comment: comment || null })
 
       const results = await db.query.voteResults.findFirst({
         where: eq(voteResults.articleId, articleId),
@@ -83,11 +81,7 @@ export async function POST(req: NextRequest) {
       where: eq(voteResults.articleId, articleId),
     })
 
-    return NextResponse.json({
-      success: true,
-      results: updated,
-      userVote: vote,
-    })
+    return NextResponse.json({ success: true, results: updated, userVote: vote })
 
   } catch (error) {
     console.error('Vote error:', error)

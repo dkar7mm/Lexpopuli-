@@ -57,6 +57,7 @@ export const votes = pgTable('votes', {
   userId: text('user_id').notNull().references(() => users.id),
   articleId: text('article_id').notNull().references(() => articles.id),
   vote: text('vote').notNull(), // 'y' lub 'n'
+  comment: text('comment'), // opcjonalny komentarz max 280 znaków
   createdAt: timestamp('created_at').defaultNow(),
 }, (table) => ({
   // Jeden głos na użytkownika na artykuł

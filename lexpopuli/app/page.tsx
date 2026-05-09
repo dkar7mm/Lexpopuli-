@@ -41,6 +41,8 @@ export default function Home() {
   const [users] = useState(1043)
   const [collapsedChapters, setCollapsedChapters] = useState<Set<string>>(new Set(CHAPTERS))
   const [collapsedParagraphs, setCollapsedParagraphs] = useState<Set<string>>(new Set(PARAGRAPHS.map(p => p.id)))
+  const [comments, setComments] = useState<Record<string, string>>({})
+  const [activeComment, setActiveComment] = useState<string | null>(null)
   const [adminStatus, setAdminStatus] = useState<{isAdmin: boolean, thresholdReached: boolean, redactionEnabled: boolean} | null>(null)
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
@@ -79,10 +81,11 @@ export default function Home() {
   const handleVote = async (articleId: string, vote: 'y' | 'n') => {
     if (!session) { setActiveTab('d'); return }
     if (userVotes[articleId] === vote) return
+    const comment = comments[articleId] || undefined
     const res = await fetch('/api/votes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ articleId, vote }),
+      body: JSON.stringify({ articleId, vote, comment }),
     })
     const data = await res.json()
     if (data.success) {
@@ -376,6 +379,29 @@ export default function Home() {
                                     )}
                                     <div className="vdays">{'★'.repeat(art.stars)} · {art.stars * 7} dni</div>
                                   </div>
+                                  {session && (
+                                    <div style={{ marginTop: '0.5rem', paddingLeft: art.artNum ? '4rem' : 0 }}>
+                                      {activeComment === art.id ? (
+                                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                                          <textarea
+                                            placeholder="Opcjonalny komentarz (max 280 znaków)..."
+                                            maxLength={280}
+                                            value={comments[art.id] || ''}
+                                            onChange={e => setComments(prev => ({ ...prev, [art.id]: e.target.value }))}
+                                            style={{ flex: 1, padding: '8px 12px', fontFamily: 'EB Garamond, serif', fontSize: '15px', border: '1px solid var(--cream-border)', background: 'var(--cream)', resize: 'vertical', minHeight: '60px', color: 'var(--text)' }}
+                                          />
+                                          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                            <button onClick={() => setActiveComment(null)} style={{ padding: '4px 12px', border: '1px solid var(--cream-border)', background: 'none', cursor: 'pointer', fontSize: '12px', fontFamily: 'inherit', color: 'var(--text-light)' }}>Zamknij</button>
+                                            <div style={{ fontSize: '11px', color: 'var(--text-lighter)', textAlign: 'right' }}>{(comments[art.id] || '').length}/280</div>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <button onClick={() => setActiveComment(art.id)} style={{ fontSize: '12px', color: 'var(--text-lighter)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', letterSpacing: '0.5px', fontStyle: 'italic' }}>
+                                          {comments[art.id] ? `✎ ${comments[art.id].substring(0, 40)}...` : '+ dodaj komentarz'}
+                                        </button>
+                                      )}
+                                    </div>
+                                  )}
                                 </div>
                               )
                             })}
