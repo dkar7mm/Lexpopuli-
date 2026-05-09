@@ -210,7 +210,7 @@ export default function Home() {
             <div className="tagline">Prawo Narodu · superanum.org · Polska 2025</div>
             <div className="header-rule" />
             <div className="header-desc">
-              Ta Konstytucja nie będzie dokumentem państwowym. Będzie nowym kontraktem, na zasadach którego stworzymy to Państwo od nowa. Niech prawo wynika z woli świadomego Narodu — nie z gabinetów politycznych obciążonych grzechami przeszłości.
+              Ta Konstytucja nie będzie dokumentem państwowym. Będzie nowym kontraktem, na zasadach którego stworzymy Państwo od nowa. Niech prawo wynika z woli świadomego Narodu — nie z gabinetów politycznych obciążonych grzechami przeszłości.
             </div>
             {session && (
               <div style={{ marginTop: '1rem', fontSize: '15px', color: 'var(--text-light)' }}>
@@ -270,11 +270,24 @@ export default function Home() {
             <div className="thin-rule" />
             <div className="manifest">
               <p>Lex Populi to projekt budowania kompletnego porządku prawnego Rzeczypospolitej — od zera, przez świadomy Naród.</p>
-              <p>Zaczynamy od Konstytucji — kontraktu który wolni ludzie zawierają między sobą, nie z państwem. Na jej zasadach stworzymy to Państwo od nowa. Potem kodeksy, ustawy, każdy przepis — budowany oddolnie, głos po głosie.</p>
+              <p>Zaczynamy od Konstytucji — kontraktu który wolni ludzie zawierają między sobą, nie z państwem. Na jej zasadach stworzymy Państwo od nowa. Potem kodeksy, ustawy i każdy potrzebny paragraf — wszystko budowane oddolnie, głos po głosie.</p>
               <p>Żadnych gotowców z gabinetów. Żadnych ustaw pisanych przez lobbystów. Tylko wola świadomego Narodu — wyrażona wprost, artykuł po artykule.</p>
-              <p>Tu nie głosujesz co cztery lata. Tu głosujesz na każde słowo prawa które Cię dotyczy.</p>
+              <p>Tu nie głosujesz co cztery lata. Tu głosujesz na każdą literę prawa które Cię dotyczy.</p>
             </div>
             <div className="full-rule" />
+
+            {/* CZYM JEST KONSTYTUCJA */}
+            <div className="sec-label" style={{ marginBottom: '1rem' }}>Czym jest Konstytucja?</div>
+            <div style={{ fontSize: '18px', lineHeight: '1.85', color: 'var(--text-muted)', marginBottom: '2rem' }}>
+              <p style={{ marginBottom: '1.25rem' }}>Współczesne podręczniki prawa konstytucyjnego definiują konstytucję jako <em>„akt prawny o najwyższej mocy prawnej, określający podstawy ustroju państwa, organizację i kompetencje naczelnych organów władzy oraz podstawowe prawa i wolności obywateli"</em> (L. Garlicki, <em>Polskie prawo konstytucyjne</em>, 2021).</p>
+              <p style={{ marginBottom: '1.25rem' }}>To definicja techniczna. Opisuje dokument. Nie mówi nic o tym skąd ten dokument pochodzi i czy ktokolwiek wyraził na niego zgodę.</p>
+              <p style={{ marginBottom: '1.25rem' }}>Tymczasem u źródeł nowoczesnej teorii prawa leży zupełnie inne rozumienie. John Locke pisał o rządzie jako instytucji istniejącej wyłącznie za zgodą rządzonych. Jean-Jacques Rousseau twierdził że jedynym źródłem legitymizacji prawa jest wola ogółu — nie wola przedstawicieli, lecz samych jednostek. John Rawls w <em>Teorii sprawiedliwości</em> opisał sprawiedliwy porządek jako taki, na który zgodziliby się ludzie nie wiedząc jaką pozycję w nim zajmą.</p>
+              <p style={{ marginBottom: '1.25rem' }}>Żadna dotychczasowa konstytucja tych warunków nie spełniała. Każda powstawała przez przedstawicieli — nie przez samych zainteresowanych. Reprezentacja była koniecznością techniczną, nie wyrazem woli. A każdy system reprezentacji rodzi ten sam, udokumentowany problem — agent działa we własnym interesie, nie mocodawcy.</p>
+              <p style={{ marginBottom: '1.25rem' }}>Dziś po raz pierwszy w historii technologia umożliwia to czego Locke, Rousseau i Rawls nie mogli sobie wyobrazić jako możliwe — bezpośredni, indywidualny udział każdej jednostki w ustalaniu zasad wspólnego życia.</p>
+              <p style={{ fontWeight: 500, color: 'var(--text)', fontStyle: 'italic' }}>Lex Populi to pierwsza próba konstytucji która spełnia definicję której uczy się na pierwszym roku prawa.<br />Jeśli ktoś jest przeciw — niech powie dlaczego.</p>
+            </div>
+            <div className="full-rule" />
+
             {stats && (
               <>
                 <div className="sec-label" style={{ marginBottom: '1rem' }}>Statystyki w czasie rzeczywistym</div>
@@ -321,7 +334,7 @@ export default function Home() {
             )}
             <div className="info-grid">
               <div className="info-box"><div className="info-box-label">Jak głosować</div><div className="info-box-text">Czytasz każdy artykuł osobno. Głosujesz za lub przeciw. Wyniki widoczne w czasie rzeczywistym i agregowane w górę — artykuł → paragraf → rozdział → Konstytucja.</div></div>
-              <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji.</div></div>
+              <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Spójności dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji.</div></div>
               <div className="info-box"><div className="info-box-label">Progi akceptacji</div><div className="info-box-text">Powyżej 50% za — artykuł przyjęty. Poniżej 50% — do redakcji przez AI.</div></div>
               <div className="info-box"><div className="info-box-label">Po {threshold.toLocaleString('pl-PL')} głosów</div><div className="info-box-text">AI zaczyna generować kolejne akty porządku prawnego wynikające z przegłosowanej Konstytucji. Zawsze dwie propozycje do wyboru.</div></div>
             </div>
@@ -334,7 +347,7 @@ export default function Home() {
             <div className="sec-title">Jak działa Lex Populi?</div>
             <div className="thin-rule" />
             <div className="manifest" style={{ marginBottom: '2rem' }}>
-              <p>Lex Populi to platforma konsultacji społecznych gdzie każdy obywatel Polski może wyrazić swoją opinię na temat projektu nowej Konstytucji Rzeczypospolitej Polskiej.</p>
+              <p>Lex Populi to platforma konsultacji społecznych gdzie każdy obywatel Polski może wyrazić swoją opinię na temat projektu nowej Konstytucji i nowego porządku prawnego Rzeczypospolitej Polskiej.</p>
             </div>
             <div className="info-grid" style={{ marginBottom: '2rem' }}>
               <div className="info-box"><div className="info-box-label">Krok 1 — Zarejestruj się</div><div className="info-box-text">Podaj swój adres email. Otrzymasz link weryfikacyjny. Kliknij go — i gotowe. Jedno konto na jeden adres email. Rejestracja dostępna wyłącznie z terytorium Polski.</div></div>
@@ -345,7 +358,7 @@ export default function Home() {
             <div className="full-rule" />
             <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.85' }}>
               <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Progi akceptacji</strong> — powyżej 50% głosów Za oznacza akceptację, poniżej 50% to artykuł do redakcji przez AI.</p>
-              <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Kto moderuje?</strong> — Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy nowy przepis wynika z ducha Konstytucji i nie odwołuje się do instytucji niepowołanych jeszcze przez Naród.</p>
+              <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Kto moderuje?</strong> — Spójności dokumentów pilnuje AI — Claude — który sprawdza czy każdy nowy element prawa wynika z ducha Konstytucji i nie odwołuje się do instytucji jeszcze nie regulowanych tym projektem.</p>
               <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Dlaczego tylko z Polski?</strong> — Konstytucja dotyczy Narodu Polskiego. Głosować mogą wyłącznie osoby przebywające na terytorium Rzeczypospolitej.</p>
               <p><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Czy mój głos jest anonimowy?</strong> — Tak. Email służy wyłącznie weryfikacji że jedna osoba nie głosuje wielokrotnie. Treść głosów nie jest powiązana z adresem email.</p>
             </div>
