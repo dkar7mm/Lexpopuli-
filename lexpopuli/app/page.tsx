@@ -24,6 +24,15 @@ type LawProposal = {
   obsoletesRefs: string | null
   createdAt: string
 }
+type Stats = {
+  totalUsers: number
+  totalVotes: number
+  avgVotes: number
+  accepted: number
+  toEdit: number
+  noVotes: number
+  totalArticles: number
+}
 
 function aggregateParagraph(paragraphId: string, results: VoteResults) {
   const arts = ARTICLES.filter(a => a.paragraphId === paragraphId)
@@ -51,13 +60,11 @@ function levelLabel(level: string) {
   return 'Rozporządzenie'
 }
 
-// Licznik zagłosowanych artykułów w rozdziale
 function chapterVotedCount(chapter: string, userVotes: UserVotes) {
   const arts = ARTICLES.filter(a => a.chapter === chapter)
   return { voted: arts.filter(a => userVotes[a.id]).length, total: arts.length }
 }
 
-// Licznik zagłosowanych artykułów w paragrafie
 function paragraphVotedCount(paragraphId: string, userVotes: UserVotes) {
   const arts = ARTICLES.filter(a => a.paragraphId === paragraphId)
   return { voted: arts.filter(a => userVotes[a.id]).length, total: arts.length }
@@ -69,7 +76,6 @@ export default function Home() {
   const [results, setResults] = useState<VoteResults>({})
   const [userVotes, setUserVotes] = useState<UserVotes>({})
   const [total, setTotal] = useState(0)
-  const [users] = useState(1043)
   const [collapsedChapters, setCollapsedChapters] = useState<Set<string>>(new Set(CHAPTERS))
   const [collapsedParagraphs, setCollapsedParagraphs] = useState<Set<string>>(new Set(PARAGRAPHS.map(p => p.id)))
   const [comments, setComments] = useState<Record<string, string>>({})
@@ -77,14 +83,13 @@ export default function Home() {
   const [adminStatus, setAdminStatus] = useState<{isAdmin: boolean, thresholdReached: boolean, redactionEnabled: boolean} | null>(null)
   const [laws, setLaws] = useState<LawProposal[]>([])
   const [userLawVotes, setUserLawVotes] = useState<Record<number, 'a' | 'b'>>({})
+  const [stats, setStats] = useState<Stats | null>(null)
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const articleRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   const threshold = parseInt(process.env.NEXT_PUBLIC_THRESHOLD || '1000000')
   const pct = Math.min(100, Math.round(total / threshold * 100))
-
-  // Globalny licznik zagłosowanych
   const globalVoted = ARTICLES.filter(a => userVotes[a.id]).length
   const globalTotal = ARTICLES.length
 
@@ -97,15 +102,11 @@ export default function Home() {
         setTotal(data.total || 0)
       }
     }).catch(() => {})
-    fetch('/api/admin').then(r => r.json()).then(data => {
-      setAdminStatus(data)
-    }).catch(() => {})
-    fetch('/api/ai-votes').then(r => r.json()).then(data => {
-      if (data.laws) setLaws(data.laws)
-    }).catch(() => {})
+    fetch('/api/admin').then(r => r.json()).then(data => setAdminStatus(data)).catch(() => {})
+    fetch('/api/ai-votes').then(r => r.json()).then(data => { if (data.laws) setLaws(data.laws) }).catch(() => {})
+    fetch('/api/stats').then(r => r.json()).then(data => setStats(data)).catch(() => {})
   }, [])
 
-  // Pobierz głosy użytkownika z sesji
   useEffect(() => {
     if (!session) return
     fetch('/api/votes/user').then(r => r.json()).then(data => {
@@ -117,23 +118,12 @@ export default function Home() {
     }).catch(() => {})
   }, [session])
 
-  // Przejdź do następnego niezagłosowanego artykułu
   const goToNextUnvoted = () => {
     const unvoted = ARTICLES.find(a => !userVotes[a.id])
     if (!unvoted) return
-    // Otwórz właściwy rozdział i paragraf
     setActiveTab('k')
-    setCollapsedChapters(prev => {
-      const next = new Set(prev)
-      next.delete(unvoted.chapter)
-      return next
-    })
-    setCollapsedParagraphs(prev => {
-      const next = new Set(prev)
-      next.delete(unvoted.paragraphId)
-      return next
-    })
-    // Scroll do artykułu po chwili
+    setCollapsedChapters(prev => { const next = new Set(prev); next.delete(unvoted.chapter); return next })
+    setCollapsedParagraphs(prev => { const next = new Set(prev); next.delete(unvoted.paragraphId); return next })
     setTimeout(() => {
       const el = articleRefs.current[unvoted.id]
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -142,11 +132,7 @@ export default function Home() {
 
   const handleEnableRedaction = async () => {
     if (!confirm('Uruchomić redakcję porządku prawnego? AI zacznie generować przepisy na podstawie Konstytucji.')) return
-    const res = await fetch('/api/admin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'enable_redaction' }),
-    })
+    const res = await fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'enable_redaction' }) })
     const data = await res.json()
     if (data.success) setAdminStatus(prev => prev ? { ...prev, redactionEnabled: true } : null)
   }
@@ -155,27 +141,20 @@ export default function Home() {
     if (!session) { setActiveTab('d'); return }
     if (userVotes[articleId] === vote) return
     const comment = comments[articleId] || undefined
-    const res = await fetch('/api/votes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ articleId, vote, comment }),
-    })
+    const res = await fetch('/api/votes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ articleId, vote, comment }) })
     const data = await res.json()
     if (data.success) {
       setResults(prev => ({ ...prev, [articleId]: data.results }))
       setUserVotes(prev => ({ ...prev, [articleId]: vote }))
       setTotal(prev => prev + 1)
+      setStats(prev => prev ? { ...prev, totalVotes: prev.totalVotes + 1 } : prev)
     }
   }
 
   const handleLawVote = async (lawId: number, choice: 'a' | 'b') => {
     if (!session) { setActiveTab('d'); return }
     if (userLawVotes[lawId] === choice) return
-    const res = await fetch('/api/ai-votes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lawId, choice }),
-    })
+    const res = await fetch('/api/ai-votes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ lawId, choice }) })
     const data = await res.json()
     if (data.success) {
       setUserLawVotes(prev => ({ ...prev, [lawId]: choice }))
@@ -194,22 +173,14 @@ export default function Home() {
     setRegStatus('sending')
     try {
       const csrfToken = await getCsrfToken()
-      const res = await fetch('/api/auth/signin/resend', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ email, callbackUrl: '/', csrfToken }),
-      })
+      const res = await fetch('/api/auth/signin/resend', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ email, callbackUrl: '/', csrfToken }) })
       if (res.ok || res.redirected || res.status === 302) setRegStatus('sent')
       else setRegStatus('idle')
     } catch { setRegStatus('idle') }
   }
 
-  const toggleChapter = (ch: string) => {
-    setCollapsedChapters(prev => { const next = new Set(prev); if (next.has(ch)) next.delete(ch); else next.add(ch); return next })
-  }
-  const toggleParagraph = (id: string) => {
-    setCollapsedParagraphs(prev => { const next = new Set(prev); if (next.has(id)) next.delete(id); else next.add(id); return next })
-  }
+  const toggleChapter = (ch: string) => { setCollapsedChapters(prev => { const next = new Set(prev); if (next.has(ch)) next.delete(ch); else next.add(ch); return next }) }
+  const toggleParagraph = (id: string) => { setCollapsedParagraphs(prev => { const next = new Set(prev); if (next.has(id)) next.delete(id); else next.add(id); return next }) }
   const collapseAll = () => { setCollapsedChapters(new Set(CHAPTERS)); setCollapsedParagraphs(new Set(PARAGRAPHS.map(p => p.id))) }
   const expandAll = () => { setCollapsedChapters(new Set()); setCollapsedParagraphs(new Set()) }
 
@@ -263,7 +234,7 @@ export default function Home() {
         <div className="container">
           <div className="counter-inner">
             <div className="cnt"><div className="cnt-n">{total.toLocaleString('pl-PL')}</div><div className="cnt-l">Głosów łącznie</div></div>
-            <div className="cnt"><div className="cnt-n">{users.toLocaleString('pl-PL')}</div><div className="cnt-l">Obywateli</div></div>
+            <div className="cnt"><div className="cnt-n">{stats ? stats.totalUsers.toLocaleString('pl-PL') : '—'}</div><div className="cnt-l">Obywateli</div></div>
             <div className="cnt"><div className="cnt-n">{ARTICLES.length}</div><div className="cnt-l">Artykułów</div></div>
             <div className="prog-wrap">
               <div className="prog-label">Głosy na Konstytucję · {pct}% · {total.toLocaleString('pl-PL')} z {threshold.toLocaleString('pl-PL')}</div>
@@ -298,10 +269,57 @@ export default function Home() {
               <p>Tu nie głosujesz co cztery lata. Tu głosujesz na każde słowo prawa które Cię dotyczy.</p>
             </div>
             <div className="full-rule" />
+
+            {/* STATYSTYKI */}
+            {stats && (
+              <>
+                <div className="sec-label" style={{ marginBottom: '1rem' }}>Statystyki w czasie rzeczywistym</div>
+                <div className="info-grid" style={{ marginBottom: '2rem' }}>
+                  <div className="info-box">
+                    <div className="info-box-label">Zarejestrowani obywatele</div>
+                    <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '32px', fontWeight: 500, color: 'var(--text)', lineHeight: 1 }}>{stats.totalUsers.toLocaleString('pl-PL')}</div>
+                  </div>
+                  <div className="info-box">
+                    <div className="info-box-label">Oddanych głosów</div>
+                    <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '32px', fontWeight: 500, color: 'var(--text)', lineHeight: 1 }}>{stats.totalVotes.toLocaleString('pl-PL')}</div>
+                  </div>
+                  <div className="info-box">
+                    <div className="info-box-label">Średnio głosów na obywatela</div>
+                    <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '32px', fontWeight: 500, color: 'var(--text)', lineHeight: 1 }}>{stats.avgVotes}</div>
+                    <div style={{ fontSize: '13px', color: 'var(--text-lighter)', marginTop: '4px' }}>z {stats.totalArticles} artykułów</div>
+                  </div>
+                  <div className="info-box">
+                    <div className="info-box-label">Wynik głosowania</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginTop: '4px' }}>
+                      <div>
+                        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '24px', fontWeight: 500, color: 'var(--red)', lineHeight: 1 }}>{stats.accepted}</div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-lighter)', marginTop: '2px' }}>przyjętych</div>
+                      </div>
+                      <div style={{ color: 'var(--cream-border)', fontSize: '20px' }}>·</div>
+                      <div>
+                        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '24px', fontWeight: 500, color: 'var(--navy)', lineHeight: 1 }}>{stats.toEdit}</div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-lighter)', marginTop: '2px' }}>do redakcji</div>
+                      </div>
+                      {stats.noVotes > 0 && (
+                        <>
+                          <div style={{ color: 'var(--cream-border)', fontSize: '20px' }}>·</div>
+                          <div>
+                            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '24px', fontWeight: 500, color: 'var(--text-lighter)', lineHeight: 1 }}>{stats.noVotes}</div>
+                            <div style={{ fontSize: '12px', color: 'var(--text-lighter)', marginTop: '2px' }}>bez głosów</div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="full-rule" />
+              </>
+            )}
+
             <div className="info-grid">
               <div className="info-box"><div className="info-box-label">Jak głosować</div><div className="info-box-text">Czytasz każdy artykuł osobno. Głosujesz za lub przeciw. Wyniki widoczne w czasie rzeczywistym i agregowane w górę — artykuł → paragraf → rozdział → Konstytucja.</div></div>
               <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji.</div></div>
-              <div className="info-box"><div className="info-box-label">Progi akceptacji</div><div className="info-box-text">75%+ za — artykuł przyjęty. 50–75% — kontrowersyjny, wymaga uwagi. Poniżej 50% — do redakcji przez AI.</div></div>
+              <div className="info-box"><div className="info-box-label">Progi akceptacji</div><div className="info-box-text">Powyżej 50% za — artykuł przyjęty. Poniżej 50% — do redakcji przez AI.</div></div>
               <div className="info-box"><div className="info-box-label">Po {threshold.toLocaleString('pl-PL')} głosów</div><div className="info-box-text">AI zaczyna generować kolejne akty porządku prawnego wynikające z przegłosowanej Konstytucji. Zawsze dwie propozycje do wyboru.</div></div>
             </div>
           </div>
@@ -335,7 +353,7 @@ export default function Home() {
             </div>
             <div className="full-rule" />
             <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.85' }}>
-              <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Progi akceptacji</strong> — każdy artykuł jest oceniany: 75% i więcej głosów Za oznacza akceptację, 50–75% to artykuł kontrowersyjny wymagający uwagi, poniżej 50% to artykuł do redakcji.</p>
+              <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Progi akceptacji</strong> — powyżej 50% głosów Za oznacza akceptację, poniżej 50% to artykuł do redakcji przez AI.</p>
               <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Kto moderuje?</strong> — Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy nowy przepis wynika z ducha Konstytucji i nie odwołuje się do instytucji niepowołanych jeszcze przez Naród.</p>
               <p style={{ marginBottom: '1rem' }}><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Dlaczego tylko z Polski?</strong> — Konstytucja dotyczy Narodu Polskiego. Głosować mogą wyłącznie osoby przebywające na terytorium Rzeczypospolitej.</p>
               <p><strong style={{ color: 'var(--text)', fontWeight: 500 }}>Czy mój głos jest anonimowy?</strong> — Tak. Email służy wyłącznie weryfikacji że jedna osoba nie głosuje wielokrotnie. Treść głosów nie jest powiązana z adresem email.</p>
@@ -428,20 +446,13 @@ export default function Home() {
                               const uv = userVotes[art.id]
                               const isPreamble = art.paragraphId === 'p0'
                               return (
-                                <div
-                                  key={art.id}
-                                  className="art"
-                                  style={{ paddingLeft: '1rem', background: !uv && session ? 'transparent' : 'transparent' }}
-                                  ref={el => { articleRefs.current[art.id] = el }}
-                                >
+                                <div key={art.id} className="art" style={{ paddingLeft: '1rem' }} ref={el => { articleRefs.current[art.id] = el }}>
                                   <div className="art-row">
                                     {art.artNum && <div className="art-num" style={{ color: 'var(--text-light)', fontSize: '12px' }}>{art.artNum}</div>}
                                     <div className="art-body">
                                       <div className="art-text" style={isPreamble ? { fontStyle: 'italic' } : {}}>{art.text}</div>
                                     </div>
-                                    {session && !uv && (
-                                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)', flexShrink: 0, marginTop: '6px' }} title="Niezagłosowany" />
-                                    )}
+                                    {session && !uv && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)', flexShrink: 0, marginTop: '6px' }} title="Niezagłosowany" />}
                                   </div>
                                   <div className="vote-row" style={{ paddingLeft: art.artNum ? '4rem' : 0 }}>
                                     {session ? (
@@ -468,13 +479,7 @@ export default function Home() {
                                     <div style={{ marginTop: '0.5rem', paddingLeft: art.artNum ? '4rem' : 0 }}>
                                       {activeComment === art.id ? (
                                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
-                                          <textarea
-                                            placeholder="Opcjonalny komentarz (max 280 znaków)..."
-                                            maxLength={280}
-                                            value={comments[art.id] || ''}
-                                            onChange={e => setComments(prev => ({ ...prev, [art.id]: e.target.value }))}
-                                            style={{ flex: 1, padding: '8px 12px', fontFamily: 'EB Garamond, serif', fontSize: '15px', border: '1px solid var(--cream-border)', background: 'var(--cream)', resize: 'vertical', minHeight: '60px', color: 'var(--text)' }}
-                                          />
+                                          <textarea placeholder="Opcjonalny komentarz (max 280 znaków)..." maxLength={280} value={comments[art.id] || ''} onChange={e => setComments(prev => ({ ...prev, [art.id]: e.target.value }))} style={{ flex: 1, padding: '8px 12px', fontFamily: 'EB Garamond, serif', fontSize: '15px', border: '1px solid var(--cream-border)', background: 'var(--cream)', resize: 'vertical', minHeight: '60px', color: 'var(--text)' }} />
                                           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                             <button onClick={() => setActiveComment(null)} style={{ padding: '4px 12px', border: '1px solid var(--cream-border)', background: 'none', cursor: 'pointer', fontSize: '12px', fontFamily: 'inherit', color: 'var(--text-light)' }}>Zamknij</button>
                                             <div style={{ fontSize: '11px', color: 'var(--text-lighter)', textAlign: 'right' }}>{(comments[art.id] || '').length}/280</div>
@@ -509,7 +514,6 @@ export default function Home() {
             <p style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '2rem', fontStyle: 'italic' }}>
               Hierarchia aktów prawnych budowanych oddolnie przez Naród. Każdy kolejny poziom odblokowuje się po osiągnięciu progu głosów na poziomie wyższym. Przepisy niższego rzędu nie mogą być sprzeczne z wyższymi — pilnuje tego AI.
             </p>
-
             {activeLaws.length > 0 && (
               <div style={{ marginBottom: '3rem' }}>
                 <div className="sec-label" style={{ marginBottom: '1rem' }}>Aktywne głosowania</div>
@@ -533,21 +537,13 @@ export default function Home() {
                           <div style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-light)', marginBottom: '0.5rem' }}>Wariant A</div>
                           <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '16px', fontWeight: 500, color: 'var(--red)', marginBottom: '0.75rem' }}>{labelA}</div>
                           <div style={{ fontSize: '15px', lineHeight: '1.75', color: 'var(--text-muted)', marginBottom: '1rem' }}>{textA}</div>
-                          {session && (
-                            <button onClick={() => handleLawVote(law.id, 'a')} style={{ padding: '7px 20px', border: `1px solid ${uv === 'a' ? 'var(--red)' : 'var(--cream-border)'}`, background: uv === 'a' ? 'var(--red)' : 'none', color: uv === 'a' ? 'var(--cream)' : 'var(--text-mid)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                              {uv === 'a' ? '✓ Wybrany' : 'Wybieram A'}{law.aCount > 0 && <span style={{ marginLeft: '8px', opacity: 0.7 }}>{law.aCount}</span>}
-                            </button>
-                          )}
+                          {session && <button onClick={() => handleLawVote(law.id, 'a')} style={{ padding: '7px 20px', border: `1px solid ${uv === 'a' ? 'var(--red)' : 'var(--cream-border)'}`, background: uv === 'a' ? 'var(--red)' : 'none', color: uv === 'a' ? 'var(--cream)' : 'var(--text-mid)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}>{uv === 'a' ? '✓ Wybrany' : 'Wybieram A'}{law.aCount > 0 && <span style={{ marginLeft: '8px', opacity: 0.7 }}>{law.aCount}</span>}</button>}
                         </div>
                         <div style={{ padding: '1.25rem', background: uv === 'b' ? '#F5F5FB' : 'var(--cream-dark)', border: `1px solid ${uv === 'b' ? 'var(--navy)' : 'var(--cream-border)'}` }}>
                           <div style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-light)', marginBottom: '0.5rem' }}>Wariant B</div>
                           <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '16px', fontWeight: 500, color: 'var(--navy)', marginBottom: '0.75rem' }}>{labelB}</div>
                           <div style={{ fontSize: '15px', lineHeight: '1.75', color: 'var(--text-muted)', marginBottom: '1rem' }}>{textB}</div>
-                          {session && (
-                            <button onClick={() => handleLawVote(law.id, 'b')} style={{ padding: '7px 20px', border: `1px solid ${uv === 'b' ? 'var(--navy)' : 'var(--cream-border)'}`, background: uv === 'b' ? 'var(--navy)' : 'none', color: uv === 'b' ? 'var(--cream)' : 'var(--text-mid)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                              {uv === 'b' ? '✓ Wybrany' : 'Wybieram B'}{law.bCount > 0 && <span style={{ marginLeft: '8px', opacity: 0.7 }}>{law.bCount}</span>}
-                            </button>
-                          )}
+                          {session && <button onClick={() => handleLawVote(law.id, 'b')} style={{ padding: '7px 20px', border: `1px solid ${uv === 'b' ? 'var(--navy)' : 'var(--cream-border)'}`, background: uv === 'b' ? 'var(--navy)' : 'none', color: uv === 'b' ? 'var(--cream)' : 'var(--text-mid)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}>{uv === 'b' ? '✓ Wybrany' : 'Wybieram B'}{law.bCount > 0 && <span style={{ marginLeft: '8px', opacity: 0.7 }}>{law.bCount}</span>}</button>}
                         </div>
                       </div>
                       {total_ab > 0 && (
@@ -576,7 +572,6 @@ export default function Home() {
                 })}
               </div>
             )}
-
             <div className="hier">
               <div className="hier-item">
                 <div className="hier-dot" style={{ background: 'var(--red)' }} />
@@ -623,7 +618,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
             {closedLaws.length > 0 && (
               <div style={{ marginTop: '3rem' }}>
                 <div className="full-rule" />
@@ -643,9 +637,7 @@ export default function Home() {
                       </div>
                       <div style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6' }}>{winner}</div>
                       <details style={{ marginTop: '0.5rem' }}>
-                        <summary style={{ fontSize: '12px', color: 'var(--text-lighter)', cursor: 'pointer', fontStyle: 'italic' }}>
-                          * Odrzucony wariant ({loserCount} głosów · {100 - winnerPct}%)
-                        </summary>
+                        <summary style={{ fontSize: '12px', color: 'var(--text-lighter)', cursor: 'pointer', fontStyle: 'italic' }}>* Odrzucony wariant ({loserCount} głosów · {100 - winnerPct}%)</summary>
                         <div style={{ fontSize: '13px', color: 'var(--text-lighter)', lineHeight: '1.6', paddingTop: '0.5rem' }}>{loser}</div>
                       </details>
                     </div>
