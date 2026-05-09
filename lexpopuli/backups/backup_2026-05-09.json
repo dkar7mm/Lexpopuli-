@@ -1,7 +1,7 @@
 {
-  "date": "2026-05-09T05:15:18.787Z",
+  "date": "2026-05-09T14:00:16.781Z",
   "stats": {
-    "totalVotes": 57,
+    "totalVotes": 72,
     "totalUsers": 1,
     "totalArticles": 136
   },
@@ -110,45 +110,45 @@
     },
     {
       "article_id": "13-1",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:05.783Z"
+      "updated_at": "2026-05-09T05:33:38.425Z"
     },
     {
       "article_id": "13-2",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:06.011Z"
+      "updated_at": "2026-05-09T05:33:39.590Z"
     },
     {
       "article_id": "13-3",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:06.244Z"
+      "updated_at": "2026-05-09T05:33:40.219Z"
     },
     {
       "article_id": "13-4",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:06.479Z"
+      "updated_at": "2026-05-09T05:43:50.320Z"
     },
     {
       "article_id": "13-5",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:06.709Z"
+      "updated_at": "2026-05-09T05:43:51.525Z"
     },
     {
       "article_id": "13-6",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:06.935Z"
+      "updated_at": "2026-05-09T05:43:52.725Z"
     },
     {
       "article_id": "13-7",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:07.184Z"
+      "updated_at": "2026-05-09T05:43:53.972Z"
     },
     {
       "article_id": "14-1",
@@ -232,19 +232,19 @@
       "article_id": "17-1",
       "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-09T04:29:09.719Z"
+      "updated_at": "2026-05-09T05:34:48.219Z"
     },
     {
       "article_id": "17-2",
       "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-09T04:29:11.082Z"
+      "updated_at": "2026-05-09T05:34:49.635Z"
     },
     {
       "article_id": "17-3",
       "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-09T04:29:12.352Z"
+      "updated_at": "2026-05-09T05:34:50.617Z"
     },
     {
       "article_id": "18-1",
@@ -308,27 +308,27 @@
     },
     {
       "article_id": "19-1",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:13.357Z"
+      "updated_at": "2026-05-09T05:34:59.731Z"
     },
     {
       "article_id": "19-2",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:13.588Z"
+      "updated_at": "2026-05-09T05:35:00.276Z"
     },
     {
       "article_id": "19-3",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:13.813Z"
+      "updated_at": "2026-05-09T05:35:01.836Z"
     },
     {
       "article_id": "19-4",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:14.043Z"
+      "updated_at": "2026-05-09T05:35:03.605Z"
     },
     {
       "article_id": "19-5",
@@ -434,27 +434,27 @@
     },
     {
       "article_id": "21-1",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:17.273Z"
+      "updated_at": "2026-05-09T05:33:29.242Z"
     },
     {
       "article_id": "21-2",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:17.500Z"
+      "updated_at": "2026-05-09T05:33:29.769Z"
     },
     {
       "article_id": "21-3",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:17.727Z"
+      "updated_at": "2026-05-09T05:33:30.992Z"
     },
     {
       "article_id": "21-4",
-      "yes_count": 0,
+      "yes_count": 1,
       "no_count": 0,
-      "updated_at": "2026-05-06T21:14:17.951Z"
+      "updated_at": "2026-05-09T05:33:31.607Z"
     },
     {
       "article_id": "22-1",
@@ -1165,6 +1165,96 @@
       "articleId": "12-3",
       "vote": "y",
       "createdAt": "2026-05-09T05:08:20.096Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "21-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:29.216Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "21-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:29.761Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "21-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:30.985Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "21-4",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:31.600Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:38.416Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:39.583Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:40.212Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-4",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:42.672Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "19-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:34:59.722Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "19-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:35:00.265Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "19-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:35:01.829Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "19-4",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:35:03.598Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-5",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:43:51.509Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-6",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:43:52.717Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-7",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:43:53.965Z"
     }
   ],
   "users": [
