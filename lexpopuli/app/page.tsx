@@ -290,6 +290,11 @@ export default function Home() {
               <p style={{ marginBottom: '1.25rem' }}>Dziś po raz pierwszy w historii technologia umożliwia to czego Locke, Rousseau i Rawls nie mogli sobie wyobrazić jako możliwe — bezpośredni, indywidualny udział każdej jednostki w ustalaniu zasad wspólnego życia.</p>
               <p style={{ fontWeight: 500, color: 'var(--text)', fontStyle: 'italic' }}>Lex Populi to pierwsza próba konstytucji która spełnia definicję której uczy się na pierwszym roku prawa.<br />Jeśli ktoś jest przeciw — niech powie dlaczego.</p>
             </div>
+
+            <div className="manifest" style={{ marginBottom: '2rem' }}>
+              <p>Nie może być mowy o demokracji jeżeli choć jedna z władz państwowych nie posiada odrębnego mandatu społeczeństwa. System w którym partia wygrywająca wybory jednocześnie tworzy prawo i je wykonuje — nie jest demokracją. Jest oligarchią z demokratyczną fasadą. W nowym porządku prawnym taki stan rzeczy musi być traktowany jako przestępstwo przeciwko Narodowi.</p>
+            </div>
+
             <div className="full-rule" />
 
             {stats && (
