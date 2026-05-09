@@ -92,6 +92,8 @@ export default function Home() {
   const pct = Math.min(100, Math.round(total / threshold * 100))
   const globalVoted = ARTICLES.filter(a => userVotes[a.id]).length
   const globalTotal = ARTICLES.length
+  const globalYes = ARTICLES.filter(a => userVotes[a.id] === 'y').length
+  const globalNo = ARTICLES.filter(a => userVotes[a.id] === 'n').length
 
   useEffect(() => {
     fetch('/api/votes').then(r => r.json()).then(data => {
@@ -118,17 +120,25 @@ export default function Home() {
     }).catch(() => {})
   }, [session])
 
-  const goToNextUnvoted = () => {
-    const unvoted = ARTICLES.find(a => !userVotes[a.id])
-    if (!unvoted) return
+  // Nawigacja do artykułu po danym głosie
+  const goToArticle = (vote: 'y' | 'n' | null) => {
+    let art
+    if (vote === null) {
+      art = ARTICLES.find(a => !userVotes[a.id])
+    } else {
+      art = ARTICLES.find(a => userVotes[a.id] === vote)
+    }
+    if (!art) return
     setActiveTab('k')
-    setCollapsedChapters(prev => { const next = new Set(prev); next.delete(unvoted.chapter); return next })
-    setCollapsedParagraphs(prev => { const next = new Set(prev); next.delete(unvoted.paragraphId); return next })
+    setCollapsedChapters(prev => { const next = new Set(prev); next.delete(art!.chapter); return next })
+    setCollapsedParagraphs(prev => { const next = new Set(prev); next.delete(art!.paragraphId); return next })
     setTimeout(() => {
-      const el = articleRefs.current[unvoted.id]
+      const el = articleRefs.current[art!.id]
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }, 150)
   }
+
+  const goToNextUnvoted = () => goToArticle(null)
 
   const handleEnableRedaction = async () => {
     if (!confirm('Uruchomić redakcję porządku prawnego? AI zacznie generować przepisy na podstawie Konstytucji.')) return
@@ -269,8 +279,6 @@ export default function Home() {
               <p>Tu nie głosujesz co cztery lata. Tu głosujesz na każde słowo prawa które Cię dotyczy.</p>
             </div>
             <div className="full-rule" />
-
-            {/* STATYSTYKI */}
             {stats && (
               <>
                 <div className="sec-label" style={{ marginBottom: '1rem' }}>Statystyki w czasie rzeczywistym</div>
@@ -315,7 +323,6 @@ export default function Home() {
                 <div className="full-rule" />
               </>
             )}
-
             <div className="info-grid">
               <div className="info-box"><div className="info-box-label">Jak głosować</div><div className="info-box-text">Czytasz każdy artykuł osobno. Głosujesz za lub przeciw. Wyniki widoczne w czasie rzeczywistym i agregowane w górę — artykuł → paragraf → rozdział → Konstytucja.</div></div>
               <div className="info-box"><div className="info-box-label">Kto moderuje</div><div className="info-box-text">Żaden człowiek. Spójność dokumentów pilnuje AI — Claude — który sprawdza czy każdy przepis wynika z ducha Konstytucji.</div></div>
@@ -334,22 +341,10 @@ export default function Home() {
               <p>Lex Populi to platforma konsultacji społecznych gdzie każdy obywatel Polski może wyrazić swoją opinię na temat projektu nowej Konstytucji Rzeczypospolitej Polskiej.</p>
             </div>
             <div className="info-grid" style={{ marginBottom: '2rem' }}>
-              <div className="info-box">
-                <div className="info-box-label">Krok 1 — Zarejestruj się</div>
-                <div className="info-box-text">Podaj swój adres email. Otrzymasz link weryfikacyjny. Kliknij go — i gotowe. Jedno konto na jeden adres email. Rejestracja dostępna wyłącznie z terytorium Polski.</div>
-              </div>
-              <div className="info-box">
-                <div className="info-box-label">Krok 2 — Czytaj i głosuj</div>
-                <div className="info-box-text">Przejdź do zakładki Konstytucja. Rozwijaj rozdziały i paragrafy. Pod każdym artykułem znajdziesz przyciski Za i Przeciw. Jeden głos na artykuł.</div>
-              </div>
-              <div className="info-box">
-                <div className="info-box-label">Krok 3 — Obserwuj wyniki</div>
-                <div className="info-box-text">Wyniki są widoczne w czasie rzeczywistym. Głosy sumują się od artykułu w górę — przez paragraf i rozdział — aż do całej Konstytucji.</div>
-              </div>
-              <div className="info-box">
-                <div className="info-box-label">Co dalej?</div>
-                <div className="info-box-text">Po zebraniu 1 000 000 głosów na Konstytucję — AI zaczyna generować kolejne akty porządku prawnego i poddawać je pod głosowanie. Porządek prawny budowany jest od nowa.</div>
-              </div>
+              <div className="info-box"><div className="info-box-label">Krok 1 — Zarejestruj się</div><div className="info-box-text">Podaj swój adres email. Otrzymasz link weryfikacyjny. Kliknij go — i gotowe. Jedno konto na jeden adres email. Rejestracja dostępna wyłącznie z terytorium Polski.</div></div>
+              <div className="info-box"><div className="info-box-label">Krok 2 — Czytaj i głosuj</div><div className="info-box-text">Przejdź do zakładki Konstytucja. Rozwijaj rozdziały i paragrafy. Pod każdym artykułem znajdziesz przyciski Za i Przeciw. Jeden głos na artykuł.</div></div>
+              <div className="info-box"><div className="info-box-label">Krok 3 — Obserwuj wyniki</div><div className="info-box-text">Wyniki są widoczne w czasie rzeczywistym. Głosy sumują się od artykułu w górę — przez paragraf i rozdział — aż do całej Konstytucji.</div></div>
+              <div className="info-box"><div className="info-box-label">Co dalej?</div><div className="info-box-text">Po zebraniu 1 000 000 głosów na Konstytucję — AI zaczyna generować kolejne akty porządku prawnego i poddawać je pod głosowanie. Porządek prawny budowany jest od nowa.</div></div>
             </div>
             <div className="full-rule" />
             <div style={{ fontSize: '17px', color: 'var(--text-muted)', lineHeight: '1.85' }}>
@@ -655,10 +650,68 @@ export default function Home() {
             <div className="thin-rule" />
             {session ? (
               <div>
-                <div className="manifest" style={{ marginBottom: '1.5rem' }}>
-                  <p>Jesteś zalogowany jako {session.user?.email}. Możesz głosować na wszystkie artykuły Konstytucji.</p>
+                {/* DASHBOARD UŻYTKOWNIKA */}
+                <div className="info-grid" style={{ marginBottom: '2rem' }}>
+                  <div className="info-box">
+                    <div className="info-box-label">Twoje głosy</div>
+                    <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '32px', fontWeight: 500, color: 'var(--text)', lineHeight: 1 }}>{globalVoted}</div>
+                    <div style={{ fontSize: '13px', color: 'var(--text-lighter)', marginTop: '4px' }}>z {globalTotal} artykułów</div>
+                  </div>
+                  <div className="info-box">
+                    <div className="info-box-label">Za · Przeciw</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginTop: '4px' }}>
+                      <div>
+                        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '28px', fontWeight: 500, color: 'var(--red)', lineHeight: 1 }}>{globalYes}</div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-lighter)', marginTop: '2px' }}>za</div>
+                      </div>
+                      <div style={{ color: 'var(--cream-border)', fontSize: '20px' }}>·</div>
+                      <div>
+                        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '28px', fontWeight: 500, color: 'var(--navy)', lineHeight: 1 }}>{globalNo}</div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-lighter)', marginTop: '2px' }}>przeciw</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="info-box">
+                    <div className="info-box-label">Niezagłosowane</div>
+                    <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '32px', fontWeight: 500, color: globalVoted === globalTotal ? 'var(--red)' : 'var(--gold)', lineHeight: 1 }}>
+                      {globalTotal - globalVoted}
+                    </div>
+                    <div style={{ fontSize: '13px', color: 'var(--text-lighter)', marginTop: '4px' }}>
+                      {globalVoted === globalTotal ? '✓ Wszystkie zagłosowane' : 'artykułów czeka'}
+                    </div>
+                  </div>
+                  <div className="info-box">
+                    <div className="info-box-label">Konto</div>
+                    <div style={{ fontSize: '14px', color: 'var(--text-muted)', marginTop: '4px', wordBreak: 'break-all' }}>{session.user?.email}</div>
+                    <button onClick={() => signOut()} style={{ marginTop: '0.75rem', padding: '5px 14px', border: '1px solid var(--cream-border)', background: 'none', cursor: 'pointer', fontSize: '12px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>Wyloguj</button>
+                  </div>
                 </div>
-                <button className="btn-primary" onClick={() => setActiveTab('k')}>Przejdź do głosowania</button>
+
+                {/* PRZYCISKI NAWIGACJI */}
+                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+                  {globalVoted < globalTotal && (
+                    <button onClick={goToNextUnvoted} style={{ padding: '8px 20px', border: '1px solid var(--gold)', background: 'none', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--gold)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                      Następny niegłosowany →
+                    </button>
+                  )}
+                  {globalNo > 0 && (
+                    <button onClick={() => goToArticle('n')} style={{ padding: '8px 20px', border: '1px solid var(--navy)', background: 'none', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--navy)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                      Pierwszy głos Przeciw →
+                    </button>
+                  )}
+                  {globalYes > 0 && (
+                    <button onClick={() => goToArticle('y')} style={{ padding: '8px 20px', border: '1px solid var(--red)', background: 'none', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--red)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                      Pierwszy głos Za →
+                    </button>
+                  )}
+                  <button onClick={() => setActiveTab('k')} style={{ padding: '8px 20px', border: '1px solid var(--cream-border)', background: 'none', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                    Przejdź do Konstytucji
+                  </button>
+                </div>
+
+                <div style={{ fontSize: '15px', color: 'var(--text-light)', lineHeight: '1.75', fontStyle: 'italic', borderTop: '1px solid var(--cream-border)', paddingTop: '1.5rem' }}>
+                  Twój głos jest anonimowy. Email służy wyłącznie weryfikacji że jedna osoba nie głosuje wielokrotnie.
+                </div>
               </div>
             ) : regStatus === 'sent' ? (
               <div className="manifest">
