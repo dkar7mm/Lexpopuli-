@@ -25,37 +25,31 @@ export async function POST(req: NextRequest) {
       await db.update(aiVotes).set({ choice }).where(and(eq(aiVotes.userId, userId), eq(aiVotes.lawId, lawId)))
     } else {
       await db.insert(aiVotes).values({ userId, lawId, choice })
+      const law = await db.query.generatedLaw.findFirst({ where: eq(generatedLaw.id, lawId) })
+      if (law && !law.firstVoteAt) {
+        await db.update(generatedLaw).set({ firstVoteAt: new Date() }).where(eq(generatedLaw.id, lawId))
+      }
     }
-    const results = await db.select({
-      choice: aiVotes.choice,
-      count: sql<number>`count(*)`,
-    }).from(aiVotes).where(eq(aiVotes.lawId, lawId)).groupBy(aiVotes.choice)
+    const results = await db.select({ choice: aiVotes.choice, count: sql<number>`count(*)` }).from(aiVotes).where(eq(aiVotes.lawId, lawId)).groupBy(aiVotes.choice)
     const aCount = Number(results.find(r => r.choice === 'a')?.count || 0)
     const bCount = Number(results.find(r => r.choice === 'b')?.count || 0)
     return NextResponse.json({ success: true, aCount, bCount, userChoice: choice })
   } catch (error) {
-    console.error('AI vote error:', error)
     return NextResponse.json({ error: 'Błąd serwera.' }, { status: 500 })
   }
 }
 
 export async function GET() {
   try {
-    const laws = await db.query.generatedLaw.findMany({
-      orderBy: (law, { desc }) => [desc(law.createdAt)],
-    })
-    const allVotes = await db.select({
-      lawId: aiVotes.lawId,
-      choice: aiVotes.choice,
-      count: sql<number>`count(*)`,
-    }).from(aiVotes).groupBy(aiVotes.lawId, aiVotes.choice)
+    const laws = await db.query.generatedLaw.findMany({ orderBy: (law, { desc }) => [desc(law.createdAt)] })
+    const allVotes = await db.select({ lawId: aiVotes.lawId, choice: aiVotes.choice, count: sql<number>`count(*)` }).from(aiVotes).groupBy(aiVotes.lawId, aiVotes.choice)
     const lawsWithResults = laws.map(law => ({
       ...law,
       aCount: Number(allVotes.find(v => v.lawId === law.id && v.choice === 'a')?.count || 0),
       bCount: Number(allVotes.find(v => v.lawId === law.id && v.choice === 'b')?.count || 0),
     }))
     return NextResponse.json({ laws: lawsWithResults })
-  } catch (error) {
+  } catch {
     return NextResponse.json({ laws: [] })
   }
 }

@@ -16,7 +16,6 @@ export const verificationTokens = pgTable('verification_tokens', {
   expires: timestamp('expires').notNull(),
 })
 
-
 // Sesje użytkowników (NextAuth)
 export const sessions = pgTable('sessions', {
   sessionToken: text('session_token').primaryKey(),
@@ -41,12 +40,12 @@ export const accounts = pgTable('accounts', {
 
 // Artykuły konstytucji
 export const articles = pgTable('articles', {
-  id: text('id').primaryKey(), // np. "p0", "1", "2", ...
-  paragraph: text('paragraph').notNull(), // np. "§ 1"
+  id: text('id').primaryKey(),
+  paragraph: text('paragraph').notNull(),
   title: text('title').notNull(),
   text: text('text').notNull(),
-  chapter: text('chapter').notNull(), // np. "Rozdział I"
-  stars: integer('stars').notNull().default(5), // 1-5
+  chapter: text('chapter').notNull(),
+  stars: integer('stars').notNull().default(5),
   active: boolean('active').notNull().default(true),
   order: integer('order').notNull().default(0),
 })
@@ -57,14 +56,13 @@ export const votes = pgTable('votes', {
   userId: text('user_id').notNull().references(() => users.id),
   articleId: text('article_id').notNull().references(() => articles.id),
   vote: text('vote').notNull(), // 'y' lub 'n'
-  comment: text('comment'), // opcjonalny komentarz max 280 znaków
+  comment: text('comment'),
   createdAt: timestamp('created_at').defaultNow(),
 }, (table) => ({
-  // Jeden głos na użytkownika na artykuł
   uniqueVote: uniqueIndex('unique_vote').on(table.userId, table.articleId),
 }))
 
-// Wyniki głosowań (cache dla szybkości)
+// Wyniki głosowań (cache)
 export const voteResults = pgTable('vote_results', {
   articleId: text('article_id').primaryKey().references(() => articles.id),
   yesCount: integer('yes_count').notNull().default(0),
@@ -72,7 +70,7 @@ export const voteResults = pgTable('vote_results', {
   updatedAt: timestamp('updated_at').defaultNow(),
 })
 
-// Akty prawne generowane przez AI (po osiągnięciu progu)
+// Akty prawne generowane przez AI
 export const generatedLaw = pgTable('generated_law', {
   id: serial('id').primaryKey(),
   parentArticleId: text('parent_article_id').references(() => articles.id),
@@ -82,16 +80,16 @@ export const generatedLaw = pgTable('generated_law', {
   proposalB: text('proposal_b').notNull(),
   stars: integer('stars').notNull().default(3),
   status: text('status').notNull().default('voting'), // 'voting', 'closed', 'archived'
-  winnerId: text('winner_id'), // 'a' lub 'b'
-  // Referencje do polskiego prawa (tylko numery, bez treści)
-  replacesRefs: text('replaces_refs'), // JSON array - przepisy zastępowane
-  updatesRefs: text('updates_refs'),   // JSON array - przepisy do nowelizacji
-  obsoletesRefs: text('obsoletes_refs'), // JSON array - przepisy dezaktualizowane
+  winnerId: text('winner_id'), // 'a' lub 'b' — zwycięski wariant
+  replacesRefs: text('replaces_refs'),   // JSON array
+  updatesRefs: text('updates_refs'),     // JSON array
+  obsoletesRefs: text('obsoletes_refs'), // JSON array
+  firstVoteAt: timestamp('first_vote_at'), // kiedy oddano pierwszy głos — startuje odliczanie
   createdAt: timestamp('created_at').defaultNow(),
   closedAt: timestamp('closed_at'),
 })
 
-// Ustawienia systemu (flagi admina)
+// Ustawienia systemu
 export const settings = pgTable('settings', {
   key: text('key').primaryKey(),
   value: text('value').notNull(),
