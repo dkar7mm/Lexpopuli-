@@ -208,7 +208,7 @@ export default function Home() {
           <div className="site-header">
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', flexWrap: 'wrap' }}>
               <div className="logo">Lex <em>Populi</em></div>
-              <div style={{ fontSize: '14px', color: 'var(--text-lighter)', fontFamily: 'Cormorant Garamond, serif', letterSpacing: '1px', paddingBottom: '6px', fontStyle: 'italic' }}>
+              <div style={{ fontSize: "32px", color: "var(--text-lighter)", fontFamily: "Cormorant Garamond, serif", fontWeight: 300, letterSpacing: "2px" }}>
                 Wersja testowa · Planowany start: 27.07.2026
               </div>
             </div>
