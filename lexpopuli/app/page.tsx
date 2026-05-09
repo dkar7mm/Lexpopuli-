@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { ARTICLES, PARAGRAPHS, CHAPTERS } from '@/lib/articles'
 
@@ -51,6 +51,18 @@ function levelLabel(level: string) {
   return 'Rozporządzenie'
 }
 
+// Licznik zagłosowanych artykułów w rozdziale
+function chapterVotedCount(chapter: string, userVotes: UserVotes) {
+  const arts = ARTICLES.filter(a => a.chapter === chapter)
+  return { voted: arts.filter(a => userVotes[a.id]).length, total: arts.length }
+}
+
+// Licznik zagłosowanych artykułów w paragrafie
+function paragraphVotedCount(paragraphId: string, userVotes: UserVotes) {
+  const arts = ARTICLES.filter(a => a.paragraphId === paragraphId)
+  return { voted: arts.filter(a => userVotes[a.id]).length, total: arts.length }
+}
+
 export default function Home() {
   const { data: session } = useSession()
   const [activeTab, setActiveTab] = useState('o')
@@ -67,9 +79,14 @@ export default function Home() {
   const [userLawVotes, setUserLawVotes] = useState<Record<number, 'a' | 'b'>>({})
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const articleRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   const threshold = parseInt(process.env.NEXT_PUBLIC_THRESHOLD || '1000000')
   const pct = Math.min(100, Math.round(total / threshold * 100))
+
+  // Globalny licznik zagłosowanych
+  const globalVoted = ARTICLES.filter(a => userVotes[a.id]).length
+  const globalTotal = ARTICLES.length
 
   useEffect(() => {
     fetch('/api/votes').then(r => r.json()).then(data => {
@@ -87,6 +104,41 @@ export default function Home() {
       if (data.laws) setLaws(data.laws)
     }).catch(() => {})
   }, [])
+
+  // Pobierz głosy użytkownika z sesji
+  useEffect(() => {
+    if (!session) return
+    fetch('/api/votes/user').then(r => r.json()).then(data => {
+      if (data.votes) {
+        const map: UserVotes = {}
+        data.votes.forEach((v: any) => { map[v.articleId] = v.vote })
+        setUserVotes(map)
+      }
+    }).catch(() => {})
+  }, [session])
+
+  // Przejdź do następnego niezagłosowanego artykułu
+  const goToNextUnvoted = () => {
+    const unvoted = ARTICLES.find(a => !userVotes[a.id])
+    if (!unvoted) return
+    // Otwórz właściwy rozdział i paragraf
+    setActiveTab('k')
+    setCollapsedChapters(prev => {
+      const next = new Set(prev)
+      next.delete(unvoted.chapter)
+      return next
+    })
+    setCollapsedParagraphs(prev => {
+      const next = new Set(prev)
+      next.delete(unvoted.paragraphId)
+      return next
+    })
+    // Scroll do artykułu po chwili
+    setTimeout(() => {
+      const el = articleRefs.current[unvoted.id]
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 150)
+  }
 
   const handleEnableRedaction = async () => {
     if (!confirm('Uruchomić redakcję porządku prawnego? AI zacznie generować przepisy na podstawie Konstytucji.')) return
@@ -298,7 +350,17 @@ export default function Home() {
                 <div className="sec-label">Projekt do konsultacji społecznych · 2025</div>
                 <div className="sec-title">Konstytucja Rzeczypospolitej Polskiej</div>
               </div>
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                {session && (
+                  <div style={{ fontSize: '14px', color: globalVoted === globalTotal ? 'var(--red)' : 'var(--text-light)', fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic' }}>
+                    {globalVoted === globalTotal ? '✓ Wszystkie zagłosowane' : `${globalVoted} / ${globalTotal} zagłosowanych`}
+                  </div>
+                )}
+                {session && globalVoted < globalTotal && (
+                  <button onClick={goToNextUnvoted} style={{ padding: '6px 16px', border: '1px solid var(--red)', background: 'none', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--red)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                    Następny niegłosowany →
+                  </button>
+                )}
                 <button onClick={collapseAll} style={{ padding: '6px 16px', border: '1px solid var(--cream-border)', background: 'var(--cream)', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>Zwiń wszystko</button>
                 <button onClick={expandAll} style={{ padding: '6px 16px', border: '1px solid var(--cream-border)', background: 'var(--cream)', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', color: 'var(--text-light)', letterSpacing: '1px', textTransform: 'uppercase' }}>Rozwiń wszystko</button>
               </div>
@@ -311,14 +373,20 @@ export default function Home() {
             )}
             {byChapter.map(({ chapter, paragraphs }) => {
               const chAgg = aggregateChapter(chapter, results)
+              const chCount = chapterVotedCount(chapter, userVotes)
               return (
                 <div key={chapter} className="chapter">
                   <div className="ch-head" onClick={() => toggleChapter(chapter)}>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1, flexWrap: 'wrap' }}>
                       <div className="ch-title">{chapter}</div>
                       {chAgg.yes + chAgg.no > 0 && (
                         <div style={{ fontSize: '16px', color: acceptanceColor(chAgg.pct), fontFamily: 'Cormorant Garamond, serif', fontWeight: 500 }}>
                           {chAgg.pct}% za · {chAgg.yes + chAgg.no} głosów
+                        </div>
+                      )}
+                      {session && (
+                        <div style={{ fontSize: '13px', color: chCount.voted === chCount.total ? 'var(--red)' : 'var(--text-lighter)', fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic' }}>
+                          {chCount.voted === chCount.total ? '✓' : `${chCount.voted}/${chCount.total}`}
                         </div>
                       )}
                     </div>
@@ -326,16 +394,22 @@ export default function Home() {
                   </div>
                   {!collapsedChapters.has(chapter) && paragraphs.map(para => {
                     const pAgg = aggregateParagraph(para.id, results)
+                    const pCount = paragraphVotedCount(para.id, userVotes)
                     const isCollapsed = collapsedParagraphs.has(para.id)
                     return (
                       <div key={para.id} style={{ borderBottom: '1px solid var(--cream-dark)' }}>
                         <div onClick={() => toggleParagraph(para.id)} style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '1rem 0 0.75rem 1rem', cursor: 'pointer' }}>
-                          <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1 }}>
+                          <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flex: 1, flexWrap: 'wrap' }}>
                             <div className="art-num">{para.paragraph}</div>
                             <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '18px', fontWeight: 500 }}>{para.title}</div>
                             {pAgg.yes + pAgg.no > 0 && (
                               <div style={{ fontSize: '15px', color: acceptanceColor(pAgg.pct), fontFamily: 'Cormorant Garamond, serif', fontWeight: 500 }}>
                                 {pAgg.pct}% za · {pAgg.yes + pAgg.no} głosów
+                              </div>
+                            )}
+                            {session && (
+                              <div style={{ fontSize: '12px', color: pCount.voted === pCount.total ? 'var(--red)' : 'var(--text-lighter)', fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic' }}>
+                                {pCount.voted === pCount.total ? '✓' : `${pCount.voted}/${pCount.total}`}
                               </div>
                             )}
                           </div>
@@ -354,12 +428,20 @@ export default function Home() {
                               const uv = userVotes[art.id]
                               const isPreamble = art.paragraphId === 'p0'
                               return (
-                                <div key={art.id} className="art" style={{ paddingLeft: '1rem' }}>
+                                <div
+                                  key={art.id}
+                                  className="art"
+                                  style={{ paddingLeft: '1rem', background: !uv && session ? 'transparent' : 'transparent' }}
+                                  ref={el => { articleRefs.current[art.id] = el }}
+                                >
                                   <div className="art-row">
                                     {art.artNum && <div className="art-num" style={{ color: 'var(--text-light)', fontSize: '12px' }}>{art.artNum}</div>}
                                     <div className="art-body">
                                       <div className="art-text" style={isPreamble ? { fontStyle: 'italic' } : {}}>{art.text}</div>
                                     </div>
+                                    {session && !uv && (
+                                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)', flexShrink: 0, marginTop: '6px' }} title="Niezagłosowany" />
+                                    )}
                                   </div>
                                   <div className="vote-row" style={{ paddingLeft: art.artNum ? '4rem' : 0 }}>
                                     {session ? (
@@ -428,7 +510,6 @@ export default function Home() {
               Hierarchia aktów prawnych budowanych oddolnie przez Naród. Każdy kolejny poziom odblokowuje się po osiągnięciu progu głosów na poziomie wyższym. Przepisy niższego rzędu nie mogą być sprzeczne z wyższymi — pilnuje tego AI.
             </p>
 
-            {/* AKTYWNE GŁOSOWANIA NA PROPOZYCJE AI */}
             {activeLaws.length > 0 && (
               <div style={{ marginBottom: '3rem' }}>
                 <div className="sec-label" style={{ marginBottom: '1rem' }}>Aktywne głosowania</div>
@@ -444,45 +525,31 @@ export default function Home() {
                       <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', marginBottom: '0.5rem' }}>
                         <div style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--red)', fontFamily: 'Cormorant Garamond, serif' }}>{levelLabel(law.level)}</div>
                         <div style={{ fontSize: '11px', color: 'var(--text-lighter)' }}>{'★'.repeat(law.stars)}</div>
+                        {session && !uv && <div style={{ fontSize: '12px', color: 'var(--gold)', fontStyle: 'italic' }}>Niezagłosowany</div>}
                       </div>
                       <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', fontWeight: 500, marginBottom: '1.5rem' }}>{law.title}</div>
-
-                      {/* DWA WARIANTY */}
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
-                        {/* WARIANT A */}
                         <div style={{ padding: '1.25rem', background: uv === 'a' ? '#FBF5F5' : 'var(--cream-dark)', border: `1px solid ${uv === 'a' ? 'var(--red)' : 'var(--cream-border)'}` }}>
                           <div style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-light)', marginBottom: '0.5rem' }}>Wariant A</div>
                           <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '16px', fontWeight: 500, color: 'var(--red)', marginBottom: '0.75rem' }}>{labelA}</div>
                           <div style={{ fontSize: '15px', lineHeight: '1.75', color: 'var(--text-muted)', marginBottom: '1rem' }}>{textA}</div>
                           {session && (
-                            <button
-                              onClick={() => handleLawVote(law.id, 'a')}
-                              style={{ padding: '7px 20px', border: `1px solid ${uv === 'a' ? 'var(--red)' : 'var(--cream-border)'}`, background: uv === 'a' ? 'var(--red)' : 'none', color: uv === 'a' ? 'var(--cream)' : 'var(--text-mid)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}
-                            >
-                              {uv === 'a' ? '✓ Wybrany' : 'Wybieram A'}
-                              {law.aCount > 0 && <span style={{ marginLeft: '8px', opacity: 0.7 }}>{law.aCount}</span>}
+                            <button onClick={() => handleLawVote(law.id, 'a')} style={{ padding: '7px 20px', border: `1px solid ${uv === 'a' ? 'var(--red)' : 'var(--cream-border)'}`, background: uv === 'a' ? 'var(--red)' : 'none', color: uv === 'a' ? 'var(--cream)' : 'var(--text-mid)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                              {uv === 'a' ? '✓ Wybrany' : 'Wybieram A'}{law.aCount > 0 && <span style={{ marginLeft: '8px', opacity: 0.7 }}>{law.aCount}</span>}
                             </button>
                           )}
                         </div>
-
-                        {/* WARIANT B */}
                         <div style={{ padding: '1.25rem', background: uv === 'b' ? '#F5F5FB' : 'var(--cream-dark)', border: `1px solid ${uv === 'b' ? 'var(--navy)' : 'var(--cream-border)'}` }}>
                           <div style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-light)', marginBottom: '0.5rem' }}>Wariant B</div>
                           <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '16px', fontWeight: 500, color: 'var(--navy)', marginBottom: '0.75rem' }}>{labelB}</div>
                           <div style={{ fontSize: '15px', lineHeight: '1.75', color: 'var(--text-muted)', marginBottom: '1rem' }}>{textB}</div>
                           {session && (
-                            <button
-                              onClick={() => handleLawVote(law.id, 'b')}
-                              style={{ padding: '7px 20px', border: `1px solid ${uv === 'b' ? 'var(--navy)' : 'var(--cream-border)'}`, background: uv === 'b' ? 'var(--navy)' : 'none', color: uv === 'b' ? 'var(--cream)' : 'var(--text-mid)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}
-                            >
-                              {uv === 'b' ? '✓ Wybrany' : 'Wybieram B'}
-                              {law.bCount > 0 && <span style={{ marginLeft: '8px', opacity: 0.7 }}>{law.bCount}</span>}
+                            <button onClick={() => handleLawVote(law.id, 'b')} style={{ padding: '7px 20px', border: `1px solid ${uv === 'b' ? 'var(--navy)' : 'var(--cream-border)'}`, background: uv === 'b' ? 'var(--navy)' : 'none', color: uv === 'b' ? 'var(--cream)' : 'var(--text-mid)', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                              {uv === 'b' ? '✓ Wybrany' : 'Wybieram B'}{law.bCount > 0 && <span style={{ marginLeft: '8px', opacity: 0.7 }}>{law.bCount}</span>}
                             </button>
                           )}
                         </div>
                       </div>
-
-                      {/* PASEK WYNIKÓW */}
                       {total_ab > 0 && (
                         <div style={{ marginBottom: '1rem' }}>
                           <div style={{ display: 'flex', height: '4px', marginBottom: '4px' }}>
@@ -496,40 +563,27 @@ export default function Home() {
                           </div>
                         </div>
                       )}
-
-                      {/* REFERENCJE DO POLSKIEGO PRAWA */}
                       {(law.replacesRefs || law.updatesRefs || law.obsoletesRefs) && (
                         <div style={{ borderTop: '1px solid var(--cream-dark)', paddingTop: '1rem', fontSize: '13px', color: 'var(--text-light)', lineHeight: '1.8' }}>
-                          {law.replacesRefs && (
-                            <div><span style={{ color: 'var(--text-mid)' }}>Zastępuje:</span> {JSON.parse(law.replacesRefs).join(' · ')}</div>
-                          )}
-                          {law.updatesRefs && (
-                            <div><span style={{ color: 'var(--text-mid)' }}>Wymaga nowelizacji:</span> {JSON.parse(law.updatesRefs).join(' · ')}</div>
-                          )}
-                          {law.obsoletesRefs && (
-                            <div><span style={{ color: 'var(--text-mid)' }}>Dezaktualizuje:</span> {JSON.parse(law.obsoletesRefs).join(' · ')}</div>
-                          )}
+                          {law.replacesRefs && <div><span style={{ color: 'var(--text-mid)' }}>Zastępuje:</span> {JSON.parse(law.replacesRefs).join(' · ')}</div>}
+                          {law.updatesRefs && <div><span style={{ color: 'var(--text-mid)' }}>Wymaga nowelizacji:</span> {JSON.parse(law.updatesRefs).join(' · ')}</div>}
+                          {law.obsoletesRefs && <div><span style={{ color: 'var(--text-mid)' }}>Dezaktualizuje:</span> {JSON.parse(law.obsoletesRefs).join(' · ')}</div>}
                         </div>
                       )}
-
-                      {!session && (
-                        <div className="vote-login-note" style={{ marginTop: '0.5rem' }}>
-                          <a href="#" onClick={e => { e.preventDefault(); setActiveTab('d') }}>Zaloguj się</a> żeby głosować na warianty
-                        </div>
-                      )}
+                      {!session && <div className="vote-login-note" style={{ marginTop: '0.5rem' }}><a href="#" onClick={e => { e.preventDefault(); setActiveTab('d') }}>Zaloguj się</a> żeby głosować na warianty</div>}
                     </div>
                   )
                 })}
               </div>
             )}
 
-            {/* HIERARCHIA */}
             <div className="hier">
               <div className="hier-item">
                 <div className="hier-dot" style={{ background: 'var(--red)' }} />
                 <div className="hier-info">
                   <div className="hier-name">Konstytucja RP</div>
                   <div className="hier-desc">Kontrakt Społeczny Narodu · fundament i seed całego porządku prawnego</div>
+                  {session && <div style={{ fontSize: '12px', color: globalVoted === globalTotal ? 'var(--red)' : 'var(--text-lighter)', fontStyle: 'italic', marginTop: '2px' }}>{globalVoted === globalTotal ? '✓ Wszystkie zagłosowane' : `${globalVoted} / ${globalTotal} artykułów zagłosowanych`}</div>}
                 </div>
                 <div className="badge badge-on">Aktywna</div>
               </div>
@@ -570,7 +624,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ARCHIWUM ZAMKNIĘTYCH GŁOSOWAŃ */}
             {closedLaws.length > 0 && (
               <div style={{ marginTop: '3rem' }}>
                 <div className="full-rule" />
