@@ -334,6 +334,8 @@ export const ARTICLES: Article[] = [
     text: 'Zakaz retroaktywności — prawo nie działa wstecz. Prawa nabyte nie mogą być odbierane bez uzasadnienia ważnym interesem publicznym i bez odszkodowania.' },
   { id: '27-4', paragraphId: '27', paragraph: '§ 27', artNum: 'Art. 4.', title: 'Zasada Legalności i Precyzji Prawa', chapter: 'Rozdział V — Praworządność', stars: 5, order: 2704,
     text: 'Organy władzy publicznej są zobowiązane do przestrzegania zasady proporcjonalności — stosowane środki muszą być adekwatne do celu i możliwie najmniej uciążliwe dla obywateli.' },
+  { id: '27-5', paragraphId: '27', paragraph: '§ 27', artNum: 'Art. 5.', title: 'Zasada Legalności i Precyzji Prawa', chapter: 'Rozdział V — Praworządność', stars: 5, order: 2705,
+  text: 'Zasada precedensu — orzeczenia sądów w sprawach o tożsamym stanie faktycznym i prawnym są wiążące dla sądów tej samej lub niższej instancji. Odstępstwo od precedensu wymaga pisemnego uzasadnienia i może nastąpić wyłącznie w interesie sprawiedliwości. Zasada ta gwarantuje równość wszystkich wobec prawa niezależnie od statusu społecznego, majątkowego lub politycznego.' },
 
   // § 28 DOSTĘP DO SĄDU
   { id: '28-1', paragraphId: '28', paragraph: '§ 28', artNum: 'Art. 1.', title: 'Dostęp do Wymiaru Sprawiedliwości', chapter: 'Rozdział V — Praworządność', stars: 5, order: 2801,
