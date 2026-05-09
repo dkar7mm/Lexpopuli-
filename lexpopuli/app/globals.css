@@ -25,7 +25,7 @@ body {
 }
 
 /* LAYOUT */
-.container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
 /* HEADER */
 .site-header { padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--cream-border); }
