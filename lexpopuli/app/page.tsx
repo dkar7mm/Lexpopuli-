@@ -206,7 +206,12 @@ export default function Home() {
       <header>
         <div className="container">
           <div className="site-header">
-            <div className="logo">Lex <em>Populi</em></div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', flexWrap: 'wrap' }}>
+              <div className="logo">Lex <em>Populi</em></div>
+              <div style={{ fontSize: '14px', color: 'var(--text-lighter)', fontFamily: 'Cormorant Garamond, serif', letterSpacing: '1px', paddingBottom: '6px', fontStyle: 'italic' }}>
+                Wersja testowa · Planowany start: 27.07.2026
+              </div>
+            </div>
             <div className="tagline">Prawo Narodu · superanum.org · Polska 2025</div>
             <div className="header-rule" />
             <div className="header-desc">
@@ -276,7 +281,6 @@ export default function Home() {
             </div>
             <div className="full-rule" />
 
-            {/* CZYM JEST KONSTYTUCJA */}
             <div className="sec-label" style={{ marginBottom: '1rem' }}>Czym jest Konstytucja?</div>
             <div style={{ fontSize: '18px', lineHeight: '1.85', color: 'var(--text-muted)', marginBottom: '2rem' }}>
               <p style={{ marginBottom: '1.25rem' }}>Współczesne podręczniki prawa konstytucyjnego definiują konstytucję jako <em>„akt prawny o najwyższej mocy prawnej, określający podstawy ustroju państwa, organizację i kompetencje naczelnych organów władzy oraz podstawowe prawa i wolności obywateli"</em> (L. Garlicki, <em>Polskie prawo konstytucyjne</em>, 2021).</p>
