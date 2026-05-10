@@ -70,6 +70,16 @@ function paragraphVotedCount(paragraphId: string, userVotes: UserVotes) {
   return { voted: arts.filter(a => userVotes[a.id]).length, total: arts.length }
 }
 
+declare global {
+  interface Window {
+    turnstile?: {
+      getResponse: (id: string) => string | undefined
+      reset: (id: string) => void
+      render: (container: string | HTMLElement, options: object) => string
+    }
+  }
+}
+
 export default function Home() {
   const { data: session } = useSession()
   const [activeTab, setActiveTab] = useState('o')
@@ -86,6 +96,8 @@ export default function Home() {
   const [stats, setStats] = useState<Stats | null>(null)
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const [turnstileId, setTurnstileId] = useState<string | null>(null)
+  const turnstileRef = useRef<HTMLDivElement>(null)
   const articleRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   const threshold = parseInt(process.env.NEXT_PUBLIC_THRESHOLD || '1000000')
@@ -119,6 +131,27 @@ export default function Home() {
       }
     }).catch(() => {})
   }, [session])
+
+  // Renderuj Turnstile gdy zakładka 'd' jest aktywna
+  useEffect(() => {
+    if (activeTab !== 'd' || session) return
+    const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+    if (!siteKey || !turnstileRef.current || turnstileId) return
+
+    const tryRender = () => {
+      if (window.turnstile && turnstileRef.current) {
+        const id = window.turnstile.render(turnstileRef.current, {
+          sitekey: siteKey,
+          theme: 'light',
+          size: 'normal',
+        })
+        setTurnstileId(id)
+      } else {
+        setTimeout(tryRender, 300)
+      }
+    }
+    tryRender()
+  }, [activeTab, session, turnstileId])
 
   const goToArticle = (vote: 'y' | 'n' | null) => {
     let art
@@ -176,6 +209,26 @@ export default function Home() {
 
   const handleRegister = async () => {
     if (!email || !email.includes('@')) return
+
+    // Weryfikacja Turnstile
+    const token = window.turnstile && turnstileId ? window.turnstile.getResponse(turnstileId) : null
+    if (!token) {
+      alert('Proszę poczekać na weryfikację bezpieczeństwa.')
+      return
+    }
+
+    const verifyRes = await fetch('/api/turnstile-verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    })
+    const verifyData = await verifyRes.json()
+    if (!verifyData.success) {
+      alert('Weryfikacja nieudana. Spróbuj ponownie.')
+      if (window.turnstile && turnstileId) window.turnstile.reset(turnstileId)
+      return
+    }
+
     setRegStatus('sending')
     try {
       const csrfToken = await getCsrfToken()
@@ -739,6 +792,7 @@ export default function Home() {
                 </div>
                 <div style={{ maxWidth: '400px' }}>
                   <input type="email" className="form-input" placeholder="Adres email" value={email} onChange={e => setEmail(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleRegister()} />
+                  <div ref={turnstileRef} style={{ marginBottom: '12px' }} />
                   <button className="btn-primary" onClick={handleRegister} disabled={regStatus === 'sending'}>
                     {regStatus === 'sending' ? 'Wysyłanie...' : 'Zarejestruj się'}
                   </button>
