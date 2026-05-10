@@ -135,13 +135,12 @@ export default function Home() {
   // Renderuj Turnstile gdy zakładka 'd' jest aktywna
   useEffect(() => {
     if (activeTab !== 'd' || session) return
-    const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
-    if (!siteKey || !turnstileRef.current || turnstileId) return
+    if (!turnstileRef.current || turnstileId) return
 
     const tryRender = () => {
       if (window.turnstile && turnstileRef.current) {
         const id = window.turnstile.render(turnstileRef.current, {
-          sitekey: siteKey,
+          sitekey: '0x4AAAAAADMvdxxinghsWEND',
           theme: 'light',
           size: 'normal',
         })
