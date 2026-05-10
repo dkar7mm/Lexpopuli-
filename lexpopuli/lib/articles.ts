@@ -83,13 +83,15 @@ export const ARTICLES: Article[] = [
   { id: '5-3', paragraphId: '5', paragraph: '§ 5', artNum: 'Art. 3.', title: 'Rodzina jako Podstawowa Komórka Społeczna', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5, order: 503,
     text: 'Państwo wspiera rodzinę, lecz jej nie zastępuje. Rodzice mają pierwszeństwo przed państwem w wychowaniu dzieci zgodnie z własnymi wartościami i przekonaniami, w granicach prawa.' },
 
-  // § 6 POMOCNICZOŚĆ
+  // § 6 POMOCNICZOŚĆ — EDYCJA art.1 + NOWY art.4
   { id: '6-1', paragraphId: '6', paragraph: '§ 6', artNum: 'Art. 1.', title: 'Zasada Pomocniczości i Decentralizacji', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5, order: 601,
-    text: 'Władza publiczna powinna być sprawowana na szczeblu możliwie najbliższym obywatelowi. Zadania, które mogą być realizowane na poziomie lokalnym lub regionalnym, nie są przekazywane organom centralnym.' },
+    text: 'Władza publiczna powinna być sprawowana na szczeblu możliwie najbliższym obywatelowi. Zadania, które mogą być realizowane na poziomie lokalnym lub regionalnym, nie są przekazywane organom centralnym. Ciężar dowodu że dane zadanie wymaga szczebla centralnego spoczywa na organie centralnym.' },
   { id: '6-2', paragraphId: '6', paragraph: '§ 6', artNum: 'Art. 2.', title: 'Zasada Pomocniczości i Decentralizacji', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5, order: 602,
     text: 'Wspólnoty samorządowe — gminne, powiatowe i wojewódzkie — mają zagwarantowaną sferę autonomii chronioną przed ingerencją władzy centralnej.' },
   { id: '6-3', paragraphId: '6', paragraph: '§ 6', artNum: 'Art. 3.', title: 'Zasada Pomocniczości i Decentralizacji', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5, order: 603,
     text: 'Naród, rodzina i wspólnota lokalna są naturalnymi i pierwotnymi podmiotami życia społecznego. Państwo wspiera ich działanie, a nie zastępuje.' },
+  { id: '6-4', paragraphId: '6', paragraph: '§ 6', artNum: 'Art. 4.', title: 'Zasada Pomocniczości i Decentralizacji', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5, order: 604,
+    text: 'Samorządy terytorialne mają zagwarantowane własne, ustawowo określone źródła dochodów, których władza centralna nie może jednostronnie ograniczyć ani zawiesić. Co najmniej 40% dochodów podatkowych zebranych na terytorium gminy pozostaje w dyspozycji tej gminy.' },
 
   // § 7 PAŃSTWO PRAWA
   { id: '7-1', paragraphId: '7', paragraph: '§ 7', artNum: 'Art. 1.', title: 'Rzeczpospolita jako Państwo Prawa', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5, order: 701,
@@ -163,7 +165,7 @@ export const ARTICLES: Article[] = [
   { id: '13-7', paragraphId: '13', paragraph: '§ 13', artNum: 'Art. 7.', title: 'Prawo do Rzetelnego Procesu', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5, order: 1307,
     text: 'Rozprawa sądowa jest jawna. Wyłączenie jawności wymaga uzasadnionego postanowienia sądu i jest dopuszczalne wyłącznie dla ochrony prywatności stron lub bezpieczeństwa państwa.' },
 
-  // § 14 WOLNOŚĆ GOSPODARCZA
+  // § 14 WOLNOŚĆ GOSPODARCZA + NOWE art.9 i art.10
   { id: '14-1', paragraphId: '14', paragraph: '§ 14', artNum: 'Art. 1.', title: 'Równość Szans i Wolność Gospodarcza', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5, order: 1401,
     text: 'Każdy ma prawo do swobodnego wyboru zawodu i miejsca pracy oraz do prowadzenia działalności gospodarczej. Wolność gospodarcza jest gwarantowana i może być ograniczona wyłącznie ustawą, gdy jest to niezbędne dla ochrony ważnego interesu publicznego.' },
   { id: '14-2', paragraphId: '14', paragraph: '§ 14', artNum: 'Art. 2.', title: 'Równość Szans i Wolność Gospodarcza', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5, order: 1402,
@@ -180,6 +182,10 @@ export const ARTICLES: Article[] = [
     text: 'Organy i agendy państwowe nie mogą prowadzić działalności gospodarczej konkurującej z obywatelami i podmiotami prywatnymi. Wyjątkiem jest infrastruktura o charakterze naturalnego monopolu, której formy własności i zarządzania określa ustawa.' },
   { id: '14-8', paragraphId: '14', paragraph: '§ 14', artNum: 'Art. 8.', title: 'Równość Szans i Wolność Gospodarcza', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5, order: 1408,
     text: 'W czasie stanu wojennego Prezydent może przejąć zarządzanie — nie własność — dowolnego podmiotu gospodarczego działającego na terytorium Rzeczypospolitej, za uprzednią zgodą Sejmu wyrażoną w ciągu 48 godzin. Przejęcie zarządzania kończy się automatycznie z chwilą ustania stanu wojennego. Odszkodowanie należy się wyłącznie w przypadku udowodnionej straty wartości lub utraty własności wskutek decyzji państwa.' },
+  { id: '14-9', paragraphId: '14', paragraph: '§ 14', artNum: 'Art. 9.', title: 'Równość Szans i Wolność Gospodarcza', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5, order: 1409,
+    text: 'Rzeczpospolita chroni i promuje kapitał narodowy. Nabywanie przez podmioty zagraniczne strategicznych aktywów — ziemi, infrastruktury krytycznej, mediów i przedsiębiorstw o kluczowym znaczeniu dla bezpieczeństwa narodowego — wymaga zgody wyrażonej ustawą. Ustawa określa katalog aktywów strategicznych i tryb udzielania zgody.' },
+  { id: '14-10', paragraphId: '14', paragraph: '§ 14', artNum: 'Art. 10.', title: 'Równość Szans i Wolność Gospodarcza', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5, order: 1410,
+    text: 'Dług publiczny nie może przekroczyć 50% PKB z poprzedniego roku budżetowego. Przekroczenie tego progu obliguje Sejm do uchwalenia planu redukcji zadłużenia w ciągu 90 dni i jego realizacji. Zaciąganie długu powyżej progu 60% PKB jest bezwzględnie zakazane i nieważne z mocy prawa. Zakaz ten nie może być uchylony żadną ustawą ani stanem wyjątkowym.' },
 
   // § 15 ŚRODOWISKO
   { id: '15-1', paragraphId: '15', paragraph: '§ 15', artNum: 'Art. 1.', title: 'Prawo do Środowiska Naturalnego', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5, order: 1501,
@@ -335,7 +341,7 @@ export const ARTICLES: Article[] = [
   { id: '27-4', paragraphId: '27', paragraph: '§ 27', artNum: 'Art. 4.', title: 'Zasada Legalności i Precyzji Prawa', chapter: 'Rozdział V — Praworządność', stars: 5, order: 2704,
     text: 'Organy władzy publicznej są zobowiązane do przestrzegania zasady proporcjonalności — stosowane środki muszą być adekwatne do celu i możliwie najmniej uciążliwe dla obywateli.' },
   { id: '27-5', paragraphId: '27', paragraph: '§ 27', artNum: 'Art. 5.', title: 'Zasada Legalności i Precyzji Prawa', chapter: 'Rozdział V — Praworządność', stars: 5, order: 2705,
-  text: 'Zasada precedensu — orzeczenia sądów w sprawach o tożsamym stanie faktycznym i prawnym są wiążące dla sądów tej samej lub niższej instancji. Odstępstwo od precedensu wymaga pisemnego uzasadnienia i może nastąpić wyłącznie w interesie sprawiedliwości. Zasada ta gwarantuje równość wszystkich wobec prawa niezależnie od statusu społecznego, majątkowego lub politycznego.' },
+    text: 'Zasada precedensu — orzeczenia sądów w sprawach o tożsamym stanie faktycznym i prawnym są wiążące dla sądów tej samej lub niższej instancji. Odstępstwo od precedensu wymaga pisemnego uzasadnienia i może nastąpić wyłącznie w interesie sprawiedliwości. Zasada ta gwarantuje równość wszystkich wobec prawa niezależnie od statusu społecznego, majątkowego lub politycznego.' },
 
   // § 28 DOSTĘP DO SĄDU
   { id: '28-1', paragraphId: '28', paragraph: '§ 28', artNum: 'Art. 1.', title: 'Dostęp do Wymiaru Sprawiedliwości', chapter: 'Rozdział V — Praworządność', stars: 5, order: 2801,

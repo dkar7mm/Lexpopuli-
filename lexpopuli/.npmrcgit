@@ -1,0 +1,1 @@
+legacy-peer-deps=true  add .npmrcgit commit -m "fix: add npmrc legacy peer deps"git push
