@@ -756,6 +756,7 @@ export default function Home() {
       <footer>
         <em>Lex Populi</em> · superanum.org · Prawo Narodu · 2025<br />
         <span style={{ fontSize: '14px', marginTop: '6px', display: 'block' }}>Moderacja: Claude AI · Projekt niekomercyjny · Konsultacje społeczne</span>
+        <span style={{ fontSize: '14px', marginTop: '4px', display: 'block', opacity: 0.7 }}>© 2025 Autor: Dawid Karnat · Wszystkie prawa zastrzeżone · Strona używa plików cookie wyłącznie do obsługi sesji logowania</span>
       </footer>
     </>
   )
