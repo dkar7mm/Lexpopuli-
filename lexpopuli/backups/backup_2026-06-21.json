@@ -1,0 +1,3058 @@
+{
+  "date": "2026-06-21T06:43:12.018Z",
+  "stats": {
+    "totalVotes": 209,
+    "totalUsers": 4,
+    "totalArticles": 136
+  },
+  "voteResults": [
+    {
+      "article_id": "1-1",
+      "yes_count": 3,
+      "no_count": 0,
+      "updated_at": "2026-06-14T21:48:19.642Z"
+    },
+    {
+      "article_id": "1-2",
+      "yes_count": 3,
+      "no_count": 0,
+      "updated_at": "2026-06-14T21:48:24.151Z"
+    },
+    {
+      "article_id": "1-3",
+      "yes_count": 3,
+      "no_count": 0,
+      "updated_at": "2026-06-14T21:48:30.016Z"
+    },
+    {
+      "article_id": "1-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:33:01.816Z"
+    },
+    {
+      "article_id": "10-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:01.283Z"
+    },
+    {
+      "article_id": "10-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:04.527Z"
+    },
+    {
+      "article_id": "10-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:10.872Z"
+    },
+    {
+      "article_id": "10-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:14.245Z"
+    },
+    {
+      "article_id": "10-5",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:22.646Z"
+    },
+    {
+      "article_id": "10-6",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:26.167Z"
+    },
+    {
+      "article_id": "11-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:30.648Z"
+    },
+    {
+      "article_id": "11-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:40.988Z"
+    },
+    {
+      "article_id": "11-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:44.862Z"
+    },
+    {
+      "article_id": "11-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:48.928Z"
+    },
+    {
+      "article_id": "12-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:52.250Z"
+    },
+    {
+      "article_id": "12-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:39:57.828Z"
+    },
+    {
+      "article_id": "12-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:03.925Z"
+    },
+    {
+      "article_id": "13-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:08.377Z"
+    },
+    {
+      "article_id": "13-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:13.130Z"
+    },
+    {
+      "article_id": "13-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:16.247Z"
+    },
+    {
+      "article_id": "13-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:25.776Z"
+    },
+    {
+      "article_id": "13-5",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:29.640Z"
+    },
+    {
+      "article_id": "13-6",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:34.140Z"
+    },
+    {
+      "article_id": "13-7",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:37.884Z"
+    },
+    {
+      "article_id": "14-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:45.626Z"
+    },
+    {
+      "article_id": "14-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:50.035Z"
+    },
+    {
+      "article_id": "14-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:40:54.354Z"
+    },
+    {
+      "article_id": "14-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:41:04.353Z"
+    },
+    {
+      "article_id": "14-5",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:41:18.406Z"
+    },
+    {
+      "article_id": "14-6",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:41:24.856Z"
+    },
+    {
+      "article_id": "14-7",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:41:30.112Z"
+    },
+    {
+      "article_id": "14-8",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:43:53.476Z"
+    },
+    {
+      "article_id": "15-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:44:10.352Z"
+    },
+    {
+      "article_id": "15-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:44:18.783Z"
+    },
+    {
+      "article_id": "16-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:44:27.700Z"
+    },
+    {
+      "article_id": "16-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:44:32.728Z"
+    },
+    {
+      "article_id": "16-3",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:44:37.389Z"
+    },
+    {
+      "article_id": "17-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:44:49.615Z"
+    },
+    {
+      "article_id": "17-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:44:55.593Z"
+    },
+    {
+      "article_id": "17-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:02.229Z"
+    },
+    {
+      "article_id": "18-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:10.597Z"
+    },
+    {
+      "article_id": "18-10",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:14.189Z"
+    },
+    {
+      "article_id": "18-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:14.970Z"
+    },
+    {
+      "article_id": "18-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:19.702Z"
+    },
+    {
+      "article_id": "18-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:27.714Z"
+    },
+    {
+      "article_id": "18-5",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:39.026Z"
+    },
+    {
+      "article_id": "18-6",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:44.861Z"
+    },
+    {
+      "article_id": "18-7",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:50.913Z"
+    },
+    {
+      "article_id": "18-8",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:45:58.131Z"
+    },
+    {
+      "article_id": "18-9",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:05.206Z"
+    },
+    {
+      "article_id": "19-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:19.663Z"
+    },
+    {
+      "article_id": "19-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:23.294Z"
+    },
+    {
+      "article_id": "19-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:29.122Z"
+    },
+    {
+      "article_id": "19-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:35.216Z"
+    },
+    {
+      "article_id": "19-5",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:41.744Z"
+    },
+    {
+      "article_id": "19-6",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:48.189Z"
+    },
+    {
+      "article_id": "19-7",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:46:55.623Z"
+    },
+    {
+      "article_id": "19-8",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:47:12.947Z"
+    },
+    {
+      "article_id": "19-9",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:15.224Z"
+    },
+    {
+      "article_id": "2-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:33:13.572Z"
+    },
+    {
+      "article_id": "2-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:33:21.516Z"
+    },
+    {
+      "article_id": "2-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:33:31.576Z"
+    },
+    {
+      "article_id": "2-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:33:41.418Z"
+    },
+    {
+      "article_id": "20-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:47:30.763Z"
+    },
+    {
+      "article_id": "20-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:47:36.225Z"
+    },
+    {
+      "article_id": "20-3",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:47:44.650Z"
+    },
+    {
+      "article_id": "20-4",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:47:49.585Z"
+    },
+    {
+      "article_id": "20-5",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:47:53.688Z"
+    },
+    {
+      "article_id": "20-6",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:47:59.435Z"
+    },
+    {
+      "article_id": "20-7",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:16.823Z"
+    },
+    {
+      "article_id": "20-8",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:17.050Z"
+    },
+    {
+      "article_id": "21-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:48:12.866Z"
+    },
+    {
+      "article_id": "21-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:48:19.141Z"
+    },
+    {
+      "article_id": "21-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:48:25.177Z"
+    },
+    {
+      "article_id": "21-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:48:29.120Z"
+    },
+    {
+      "article_id": "22-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:48:41.600Z"
+    },
+    {
+      "article_id": "22-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:48:42.495Z"
+    },
+    {
+      "article_id": "22-3",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:18.635Z"
+    },
+    {
+      "article_id": "23-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:48:55.589Z"
+    },
+    {
+      "article_id": "23-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:01.958Z"
+    },
+    {
+      "article_id": "23-3",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:06.471Z"
+    },
+    {
+      "article_id": "24-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:13.396Z"
+    },
+    {
+      "article_id": "24-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:17.338Z"
+    },
+    {
+      "article_id": "24-3",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:23.322Z"
+    },
+    {
+      "article_id": "24-4",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:32.766Z"
+    },
+    {
+      "article_id": "24-5",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:37.176Z"
+    },
+    {
+      "article_id": "25-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:43.460Z"
+    },
+    {
+      "article_id": "25-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:48.252Z"
+    },
+    {
+      "article_id": "25-3",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:51.737Z"
+    },
+    {
+      "article_id": "25-4",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:54.542Z"
+    },
+    {
+      "article_id": "25-5",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:56.935Z"
+    },
+    {
+      "article_id": "25-6",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:49:59.416Z"
+    },
+    {
+      "article_id": "25-7",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:03.314Z"
+    },
+    {
+      "article_id": "26-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:11.422Z"
+    },
+    {
+      "article_id": "26-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:16.273Z"
+    },
+    {
+      "article_id": "26-3",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:19.819Z"
+    },
+    {
+      "article_id": "27-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:27.638Z"
+    },
+    {
+      "article_id": "27-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:30.687Z"
+    },
+    {
+      "article_id": "27-3",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:36.059Z"
+    },
+    {
+      "article_id": "27-4",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:40.049Z"
+    },
+    {
+      "article_id": "28-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:55.680Z"
+    },
+    {
+      "article_id": "28-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:50:58.650Z"
+    },
+    {
+      "article_id": "29-1",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:24.310Z"
+    },
+    {
+      "article_id": "29-2",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:24.536Z"
+    },
+    {
+      "article_id": "29-3",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:51:19.503Z"
+    },
+    {
+      "article_id": "29-4",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:51:26.354Z"
+    },
+    {
+      "article_id": "3-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:33:55.725Z"
+    },
+    {
+      "article_id": "3-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:34:04.558Z"
+    },
+    {
+      "article_id": "3-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:34:12.014Z"
+    },
+    {
+      "article_id": "30-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:51:32.898Z"
+    },
+    {
+      "article_id": "30-2",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:25.455Z"
+    },
+    {
+      "article_id": "31-1",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:25.673Z"
+    },
+    {
+      "article_id": "31-2",
+      "yes_count": 0,
+      "no_count": 0,
+      "updated_at": "2026-05-06T21:14:25.896Z"
+    },
+    {
+      "article_id": "32-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:52:01.524Z"
+    },
+    {
+      "article_id": "32-2",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:52:42.211Z"
+    },
+    {
+      "article_id": "33-1",
+      "yes_count": 1,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:52:51.068Z"
+    },
+    {
+      "article_id": "4-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:34:20.764Z"
+    },
+    {
+      "article_id": "4-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:34:28.260Z"
+    },
+    {
+      "article_id": "4-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:34:44.042Z"
+    },
+    {
+      "article_id": "4-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:34:53.884Z"
+    },
+    {
+      "article_id": "5-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:35:02.648Z"
+    },
+    {
+      "article_id": "5-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:35:06.935Z"
+    },
+    {
+      "article_id": "5-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:35:14.285Z"
+    },
+    {
+      "article_id": "6-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:35:24.586Z"
+    },
+    {
+      "article_id": "6-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:35:40.441Z"
+    },
+    {
+      "article_id": "6-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:35:45.930Z"
+    },
+    {
+      "article_id": "7-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:37:46.509Z"
+    },
+    {
+      "article_id": "7-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:37:55.763Z"
+    },
+    {
+      "article_id": "8-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:38:02.464Z"
+    },
+    {
+      "article_id": "8-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:38:17.060Z"
+    },
+    {
+      "article_id": "8-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:38:20.875Z"
+    },
+    {
+      "article_id": "8-4",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:38:26.848Z"
+    },
+    {
+      "article_id": "9-1",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:38:41.566Z"
+    },
+    {
+      "article_id": "9-2",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:38:47.793Z"
+    },
+    {
+      "article_id": "9-3",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:38:56.680Z"
+    },
+    {
+      "article_id": "p0-0",
+      "yes_count": 2,
+      "no_count": 0,
+      "updated_at": "2026-05-25T12:32:08.033Z"
+    }
+  ],
+  "votes": [
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "1-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:30.704Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "1-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:34.285Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "1-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:36.379Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "1-4",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:38.519Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "2-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:42.323Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "2-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:43.696Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "2-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:44.918Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "2-4",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:45.782Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "3-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:18:56.047Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "3-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:00.452Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "3-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:04.639Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "4-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:24.763Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "4-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:25.348Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "4-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:25.945Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "4-4",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:27.687Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "5-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:34.310Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "5-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:34.926Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "5-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:35.500Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "6-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:37.776Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "6-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:38.434Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "6-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:38.912Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "7-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:41.342Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "7-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:41.821Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "8-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:46.320Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "8-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:46.971Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "8-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:47.605Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "8-4",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:48.938Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "9-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:19:59.246Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "9-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:00.339Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "9-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:06.286Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "10-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:18.719Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "10-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:19.577Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "10-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:21.484Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "10-4",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:22.474Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "10-5",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:23.436Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "10-6",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:24.511Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "11-1",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:27.228Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "11-2",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:28.286Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "11-3",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:29.252Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "11-4",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:20:30.266Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "p0-0",
+      "vote": "y",
+      "createdAt": "2026-05-06T21:33:03.688Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "17-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:09.690Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "17-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:11.063Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "17-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:12.345Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:14.318Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:15.324Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:16.320Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-4",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:17.535Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-5",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:18.466Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-6",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:19.613Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-7",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:20.944Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-8",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:22.375Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-9",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:22.997Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "18-10",
+      "vote": "y",
+      "createdAt": "2026-05-09T04:29:24.255Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "12-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:08:16.458Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "12-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:08:18.097Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "12-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:08:20.096Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "21-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:29.216Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "21-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:29.761Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "21-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:30.985Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "21-4",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:31.600Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:38.416Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:39.583Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:40.212Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-4",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:33:42.672Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "19-1",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:34:59.722Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "19-2",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:35:00.265Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "19-3",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:35:01.829Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "19-4",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:35:03.598Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-5",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:43:51.509Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-6",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:43:52.717Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "13-7",
+      "vote": "y",
+      "createdAt": "2026-05-09T05:43:53.965Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "14-1",
+      "vote": "y",
+      "createdAt": "2026-05-10T04:29:36.235Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "14-2",
+      "vote": "y",
+      "createdAt": "2026-05-10T04:29:37.632Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "14-3",
+      "vote": "y",
+      "createdAt": "2026-05-10T04:29:39.262Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "14-4",
+      "vote": "y",
+      "createdAt": "2026-05-10T04:29:40.158Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "14-5",
+      "vote": "y",
+      "createdAt": "2026-05-10T04:29:40.982Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "14-6",
+      "vote": "y",
+      "createdAt": "2026-05-10T06:11:01.405Z"
+    },
+    {
+      "userId": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "articleId": "14-7",
+      "vote": "y",
+      "createdAt": "2026-05-10T06:11:04.595Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "p0-0",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:32:08.012Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "1-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:32:35.270Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "1-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:32:41.927Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "1-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:32:51.429Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "1-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:33:01.807Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "2-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:33:13.562Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "2-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:33:21.508Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "2-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:33:31.569Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "2-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:33:41.411Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "3-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:33:55.717Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "3-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:34:04.552Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "3-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:34:12.008Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "4-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:34:20.757Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "4-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:34:28.254Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "4-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:34:44.037Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "4-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:34:53.878Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "5-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:35:02.642Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "5-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:35:06.924Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "5-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:35:14.277Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "6-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:35:24.573Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "6-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:35:40.434Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "6-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:35:45.923Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "7-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:37:46.502Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "7-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:37:55.752Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "8-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:38:02.457Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "8-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:38:17.052Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "8-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:38:20.868Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "8-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:38:26.841Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "9-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:38:41.557Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "9-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:38:47.786Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "9-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:38:56.671Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "10-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:01.276Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "10-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:04.520Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "10-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:10.865Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "10-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:14.238Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "10-5",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:22.626Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "10-6",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:26.161Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "11-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:30.640Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "11-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:40.981Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "11-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:44.855Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "11-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:48.921Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "12-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:52.244Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "12-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:39:57.820Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "12-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:03.916Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "13-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:08.371Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "13-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:13.122Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "13-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:16.235Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "13-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:25.747Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "13-5",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:29.633Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "13-6",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:34.133Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "13-7",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:37.879Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "14-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:45.619Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "14-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:50.027Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "14-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:40:54.348Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "14-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:41:04.345Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "14-5",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:41:18.395Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "14-6",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:41:24.848Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "14-7",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:41:30.104Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "14-8",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:42:41.873Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "15-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:44:10.346Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "15-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:44:18.776Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "16-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:44:27.692Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "16-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:44:32.722Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "16-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:44:37.382Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "17-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:44:49.608Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "17-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:44:55.587Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "17-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:02.221Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:10.585Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:14.964Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:19.693Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:27.706Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-5",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:39.020Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-6",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:44.854Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-7",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:50.906Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-8",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:45:58.120Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-9",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:05.198Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "18-10",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:14.181Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "19-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:19.658Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "19-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:23.288Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "19-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:29.116Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "19-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:35.208Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "19-5",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:41.737Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "19-6",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:48.182Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "19-7",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:46:55.616Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "19-8",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:47:12.940Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "20-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:47:30.756Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "20-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:47:36.217Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "20-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:47:44.645Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "20-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:47:49.579Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "20-5",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:47:53.681Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "20-6",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:47:59.430Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "21-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:48:12.859Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "21-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:48:19.134Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "21-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:48:25.171Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "21-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:48:29.115Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "22-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:48:41.595Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "22-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:48:42.489Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "23-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:48:55.582Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "23-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:01.952Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "23-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:06.464Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "24-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:13.389Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "24-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:17.330Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "24-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:23.313Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "24-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:32.759Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "24-5",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:37.161Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "25-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:43.455Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "25-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:48.245Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "25-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:51.731Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "25-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:54.536Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "25-5",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:56.929Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "25-6",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:49:59.411Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "25-7",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:03.307Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "26-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:11.415Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "26-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:16.266Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "26-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:19.813Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "27-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:27.631Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "27-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:30.681Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "27-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:36.052Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "27-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:40.042Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "28-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:55.674Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "28-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:50:58.645Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "29-3",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:51:19.496Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "29-4",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:51:26.347Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "30-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:51:32.892Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "32-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:52:01.518Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "32-2",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:52:42.202Z"
+    },
+    {
+      "userId": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "articleId": "33-1",
+      "vote": "y",
+      "createdAt": "2026-05-25T12:52:51.062Z"
+    },
+    {
+      "userId": "ae0b44b8-549f-4f37-93cd-4cc94fea8de2",
+      "articleId": "1-1",
+      "vote": "y",
+      "createdAt": "2026-06-14T21:48:19.624Z"
+    },
+    {
+      "userId": "ae0b44b8-549f-4f37-93cd-4cc94fea8de2",
+      "articleId": "1-2",
+      "vote": "y",
+      "createdAt": "2026-06-14T21:48:24.142Z"
+    },
+    {
+      "userId": "ae0b44b8-549f-4f37-93cd-4cc94fea8de2",
+      "articleId": "1-3",
+      "vote": "y",
+      "createdAt": "2026-06-14T21:48:30.008Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "ed757690-5bfe-48d3-99fd-d244ad0fdcb3",
+      "createdAt": "2026-05-05T20:24:03.380Z",
+      "wojewodztwo": null
+    },
+    {
+      "id": "6c5d5077-ee8e-49dd-9b43-1633bd6f9e58",
+      "createdAt": "2026-05-09T17:00:16.338Z",
+      "wojewodztwo": null
+    },
+    {
+      "id": "297e4a9a-1ddd-4031-929f-7d54ca0277eb",
+      "createdAt": "2026-05-22T06:12:37.851Z",
+      "wojewodztwo": null
+    },
+    {
+      "id": "ae0b44b8-549f-4f37-93cd-4cc94fea8de2",
+      "createdAt": "2026-06-14T21:45:04.457Z",
+      "wojewodztwo": null
+    }
+  ],
+  "articles": [
+    {
+      "id": "p0-0",
+      "paragraph": "p0-0",
+      "title": "p0-0",
+      "chapter": "Preambuła",
+      "stars": 5
+    },
+    {
+      "id": "1-1",
+      "paragraph": "1-1",
+      "title": "1-1",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "1-2",
+      "paragraph": "1-2",
+      "title": "1-2",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "1-3",
+      "paragraph": "1-3",
+      "title": "1-3",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "1-4",
+      "paragraph": "1-4",
+      "title": "1-4",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "2-1",
+      "paragraph": "2-1",
+      "title": "2-1",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "2-2",
+      "paragraph": "2-2",
+      "title": "2-2",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "2-3",
+      "paragraph": "2-3",
+      "title": "2-3",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "2-4",
+      "paragraph": "2-4",
+      "title": "2-4",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "3-1",
+      "paragraph": "3-1",
+      "title": "3-1",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "3-2",
+      "paragraph": "3-2",
+      "title": "3-2",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "3-3",
+      "paragraph": "3-3",
+      "title": "3-3",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "4-1",
+      "paragraph": "4-1",
+      "title": "4-1",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "4-2",
+      "paragraph": "4-2",
+      "title": "4-2",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "4-3",
+      "paragraph": "4-3",
+      "title": "4-3",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "4-4",
+      "paragraph": "4-4",
+      "title": "4-4",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "5-1",
+      "paragraph": "5-1",
+      "title": "5-1",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "5-2",
+      "paragraph": "5-2",
+      "title": "5-2",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "5-3",
+      "paragraph": "5-3",
+      "title": "5-3",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "6-1",
+      "paragraph": "6-1",
+      "title": "6-1",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "6-2",
+      "paragraph": "6-2",
+      "title": "6-2",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "6-3",
+      "paragraph": "6-3",
+      "title": "6-3",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "7-1",
+      "paragraph": "7-1",
+      "title": "7-1",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "7-2",
+      "paragraph": "7-2",
+      "title": "7-2",
+      "chapter": "Rozdział I — Zasady Ustrojowe: Naród jako Suweren",
+      "stars": 5
+    },
+    {
+      "id": "8-1",
+      "paragraph": "8-1",
+      "title": "8-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "8-2",
+      "paragraph": "8-2",
+      "title": "8-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "8-3",
+      "paragraph": "8-3",
+      "title": "8-3",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "8-4",
+      "paragraph": "8-4",
+      "title": "8-4",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "9-1",
+      "paragraph": "9-1",
+      "title": "9-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "9-2",
+      "paragraph": "9-2",
+      "title": "9-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "9-3",
+      "paragraph": "9-3",
+      "title": "9-3",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "10-1",
+      "paragraph": "10-1",
+      "title": "10-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "10-2",
+      "paragraph": "10-2",
+      "title": "10-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "10-3",
+      "paragraph": "10-3",
+      "title": "10-3",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "10-4",
+      "paragraph": "10-4",
+      "title": "10-4",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "10-5",
+      "paragraph": "10-5",
+      "title": "10-5",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "10-6",
+      "paragraph": "10-6",
+      "title": "10-6",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "11-1",
+      "paragraph": "11-1",
+      "title": "11-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "11-2",
+      "paragraph": "11-2",
+      "title": "11-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "11-3",
+      "paragraph": "11-3",
+      "title": "11-3",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "11-4",
+      "paragraph": "11-4",
+      "title": "11-4",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "12-1",
+      "paragraph": "12-1",
+      "title": "12-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "12-2",
+      "paragraph": "12-2",
+      "title": "12-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "12-3",
+      "paragraph": "12-3",
+      "title": "12-3",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "13-1",
+      "paragraph": "13-1",
+      "title": "13-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "13-2",
+      "paragraph": "13-2",
+      "title": "13-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "13-3",
+      "paragraph": "13-3",
+      "title": "13-3",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "13-4",
+      "paragraph": "13-4",
+      "title": "13-4",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "13-5",
+      "paragraph": "13-5",
+      "title": "13-5",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "13-6",
+      "paragraph": "13-6",
+      "title": "13-6",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "13-7",
+      "paragraph": "13-7",
+      "title": "13-7",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "14-1",
+      "paragraph": "14-1",
+      "title": "14-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "14-2",
+      "paragraph": "14-2",
+      "title": "14-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "14-3",
+      "paragraph": "14-3",
+      "title": "14-3",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "14-4",
+      "paragraph": "14-4",
+      "title": "14-4",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "14-5",
+      "paragraph": "14-5",
+      "title": "14-5",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "14-6",
+      "paragraph": "14-6",
+      "title": "14-6",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "14-7",
+      "paragraph": "14-7",
+      "title": "14-7",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "14-8",
+      "paragraph": "14-8",
+      "title": "14-8",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "15-1",
+      "paragraph": "15-1",
+      "title": "15-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "15-2",
+      "paragraph": "15-2",
+      "title": "15-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "16-1",
+      "paragraph": "16-1",
+      "title": "16-1",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "16-2",
+      "paragraph": "16-2",
+      "title": "16-2",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "16-3",
+      "paragraph": "16-3",
+      "title": "16-3",
+      "chapter": "Rozdział II — Prawa i Wolności Obywatelskie",
+      "stars": 5
+    },
+    {
+      "id": "17-1",
+      "paragraph": "17-1",
+      "title": "17-1",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "17-2",
+      "paragraph": "17-2",
+      "title": "17-2",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "17-3",
+      "paragraph": "17-3",
+      "title": "17-3",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-1",
+      "paragraph": "18-1",
+      "title": "18-1",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-2",
+      "paragraph": "18-2",
+      "title": "18-2",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-3",
+      "paragraph": "18-3",
+      "title": "18-3",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-4",
+      "paragraph": "18-4",
+      "title": "18-4",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-5",
+      "paragraph": "18-5",
+      "title": "18-5",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-6",
+      "paragraph": "18-6",
+      "title": "18-6",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-7",
+      "paragraph": "18-7",
+      "title": "18-7",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-8",
+      "paragraph": "18-8",
+      "title": "18-8",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-9",
+      "paragraph": "18-9",
+      "title": "18-9",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "18-10",
+      "paragraph": "18-10",
+      "title": "18-10",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-1",
+      "paragraph": "19-1",
+      "title": "19-1",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-2",
+      "paragraph": "19-2",
+      "title": "19-2",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-3",
+      "paragraph": "19-3",
+      "title": "19-3",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-4",
+      "paragraph": "19-4",
+      "title": "19-4",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-5",
+      "paragraph": "19-5",
+      "title": "19-5",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-6",
+      "paragraph": "19-6",
+      "title": "19-6",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-7",
+      "paragraph": "19-7",
+      "title": "19-7",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-8",
+      "paragraph": "19-8",
+      "title": "19-8",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "19-9",
+      "paragraph": "19-9",
+      "title": "19-9",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "20-1",
+      "paragraph": "20-1",
+      "title": "20-1",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "20-2",
+      "paragraph": "20-2",
+      "title": "20-2",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "20-3",
+      "paragraph": "20-3",
+      "title": "20-3",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "20-4",
+      "paragraph": "20-4",
+      "title": "20-4",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "20-5",
+      "paragraph": "20-5",
+      "title": "20-5",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "20-6",
+      "paragraph": "20-6",
+      "title": "20-6",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "20-7",
+      "paragraph": "20-7",
+      "title": "20-7",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "20-8",
+      "paragraph": "20-8",
+      "title": "20-8",
+      "chapter": "Rozdział III — Ustrój Państwa: Trójpodział Władzy pod Kontrolą Narodu",
+      "stars": 5
+    },
+    {
+      "id": "21-1",
+      "paragraph": "21-1",
+      "title": "21-1",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "21-2",
+      "paragraph": "21-2",
+      "title": "21-2",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "21-3",
+      "paragraph": "21-3",
+      "title": "21-3",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "21-4",
+      "paragraph": "21-4",
+      "title": "21-4",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "22-1",
+      "paragraph": "22-1",
+      "title": "22-1",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "22-2",
+      "paragraph": "22-2",
+      "title": "22-2",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "22-3",
+      "paragraph": "22-3",
+      "title": "22-3",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "23-1",
+      "paragraph": "23-1",
+      "title": "23-1",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "23-2",
+      "paragraph": "23-2",
+      "title": "23-2",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "23-3",
+      "paragraph": "23-3",
+      "title": "23-3",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "24-1",
+      "paragraph": "24-1",
+      "title": "24-1",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "24-2",
+      "paragraph": "24-2",
+      "title": "24-2",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "24-3",
+      "paragraph": "24-3",
+      "title": "24-3",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "24-4",
+      "paragraph": "24-4",
+      "title": "24-4",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "24-5",
+      "paragraph": "24-5",
+      "title": "24-5",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "25-1",
+      "paragraph": "25-1",
+      "title": "25-1",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "25-2",
+      "paragraph": "25-2",
+      "title": "25-2",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "25-3",
+      "paragraph": "25-3",
+      "title": "25-3",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "25-4",
+      "paragraph": "25-4",
+      "title": "25-4",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "25-5",
+      "paragraph": "25-5",
+      "title": "25-5",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "25-6",
+      "paragraph": "25-6",
+      "title": "25-6",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "25-7",
+      "paragraph": "25-7",
+      "title": "25-7",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "26-1",
+      "paragraph": "26-1",
+      "title": "26-1",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "26-2",
+      "paragraph": "26-2",
+      "title": "26-2",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "26-3",
+      "paragraph": "26-3",
+      "title": "26-3",
+      "chapter": "Rozdział IV — Kontrola Władzy przez Naród",
+      "stars": 5
+    },
+    {
+      "id": "27-1",
+      "paragraph": "27-1",
+      "title": "27-1",
+      "chapter": "Rozdział V — Praworządność",
+      "stars": 5
+    },
+    {
+      "id": "27-2",
+      "paragraph": "27-2",
+      "title": "27-2",
+      "chapter": "Rozdział V — Praworządność",
+      "stars": 5
+    },
+    {
+      "id": "27-3",
+      "paragraph": "27-3",
+      "title": "27-3",
+      "chapter": "Rozdział V — Praworządność",
+      "stars": 5
+    },
+    {
+      "id": "27-4",
+      "paragraph": "27-4",
+      "title": "27-4",
+      "chapter": "Rozdział V — Praworządność",
+      "stars": 5
+    },
+    {
+      "id": "28-1",
+      "paragraph": "28-1",
+      "title": "28-1",
+      "chapter": "Rozdział V — Praworządność",
+      "stars": 5
+    },
+    {
+      "id": "28-2",
+      "paragraph": "28-2",
+      "title": "28-2",
+      "chapter": "Rozdział V — Praworządność",
+      "stars": 5
+    },
+    {
+      "id": "29-1",
+      "paragraph": "29-1",
+      "title": "29-1",
+      "chapter": "Rozdział VI — Zmiana Konstytucji",
+      "stars": 5
+    },
+    {
+      "id": "29-2",
+      "paragraph": "29-2",
+      "title": "29-2",
+      "chapter": "Rozdział VI — Zmiana Konstytucji",
+      "stars": 5
+    },
+    {
+      "id": "29-3",
+      "paragraph": "29-3",
+      "title": "29-3",
+      "chapter": "Rozdział VI — Zmiana Konstytucji",
+      "stars": 5
+    },
+    {
+      "id": "29-4",
+      "paragraph": "29-4",
+      "title": "29-4",
+      "chapter": "Rozdział VI — Zmiana Konstytucji",
+      "stars": 5
+    },
+    {
+      "id": "30-1",
+      "paragraph": "30-1",
+      "title": "30-1",
+      "chapter": "Rozdział VI — Zmiana Konstytucji",
+      "stars": 5
+    },
+    {
+      "id": "30-2",
+      "paragraph": "30-2",
+      "title": "30-2",
+      "chapter": "Rozdział VI — Zmiana Konstytucji",
+      "stars": 5
+    },
+    {
+      "id": "31-1",
+      "paragraph": "31-1",
+      "title": "31-1",
+      "chapter": "Rozdział VII — Postanowienia Końcowe",
+      "stars": 5
+    },
+    {
+      "id": "31-2",
+      "paragraph": "31-2",
+      "title": "31-2",
+      "chapter": "Rozdział VII — Postanowienia Końcowe",
+      "stars": 5
+    },
+    {
+      "id": "32-1",
+      "paragraph": "32-1",
+      "title": "32-1",
+      "chapter": "Rozdział VII — Postanowienia Końcowe",
+      "stars": 5
+    },
+    {
+      "id": "32-2",
+      "paragraph": "32-2",
+      "title": "32-2",
+      "chapter": "Rozdział VII — Postanowienia Końcowe",
+      "stars": 5
+    },
+    {
+      "id": "33-1",
+      "paragraph": "33-1",
+      "title": "33-1",
+      "chapter": "Rozdział VII — Postanowienia Końcowe",
+      "stars": 5
+    }
+  ]
+}
