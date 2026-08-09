@@ -27,6 +27,7 @@ const articles = [
   { id: '6-1', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5 },
   { id: '6-2', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5 },
   { id: '6-3', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5 },
+  { id: '6-4', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5 },
   { id: '7-1', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5 },
   { id: '7-2', chapter: 'Rozdział I — Zasady Ustrojowe: Naród jako Suweren', stars: 5 },
   { id: '8-1', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
@@ -64,6 +65,8 @@ const articles = [
   { id: '14-6', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
   { id: '14-7', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
   { id: '14-8', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
+  { id: '14-9', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
+  { id: '14-10', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
   { id: '15-1', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
   { id: '15-2', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
   { id: '16-1', chapter: 'Rozdział II — Prawa i Wolności Obywatelskie', stars: 5 },
@@ -128,6 +131,7 @@ const articles = [
   { id: '27-2', chapter: 'Rozdział V — Praworządność', stars: 5 },
   { id: '27-3', chapter: 'Rozdział V — Praworządność', stars: 5 },
   { id: '27-4', chapter: 'Rozdział V — Praworządność', stars: 5 },
+  { id: '27-5', chapter: 'Rozdział V — Praworządność', stars: 5 },
   { id: '28-1', chapter: 'Rozdział V — Praworządność', stars: 5 },
   { id: '28-2', chapter: 'Rozdział V — Praworządność', stars: 5 },
   { id: '29-1', chapter: 'Rozdział VI — Zmiana Konstytucji', stars: 5 },
@@ -143,17 +147,19 @@ const articles = [
   { id: '33-1', chapter: 'Rozdział VII — Postanowienia Końcowe', stars: 5 }
 ]
 
-// Usuń stare rekordy
-await sql`DELETE FROM vote_results`
-await sql`DELETE FROM votes`
-await sql`DELETE FROM articles`
-
+// Ten skrypt jest wyłącznie addytywny — nigdy nie kasuje istniejących
+// artykułów, głosów ani wyników. ON CONFLICT DO NOTHING pomija artykuły,
+// które już są w bazie, więc bezpiecznie dogrywa tylko nowo dodane
+// (np. w lib/articles.ts) bez ryzyka utraty dotychczasowych głosów.
+let added = 0
 for (const art of articles) {
-  await sql`
+  const inserted = await sql`
     INSERT INTO articles (id, paragraph, title, text, chapter, stars, "order")
     VALUES (${art.id}, ${art.id}, ${art.id}, ${art.id}, ${art.chapter}, ${art.stars}, 0)
     ON CONFLICT (id) DO NOTHING
+    RETURNING id
   `
+  if (inserted.length > 0) added++
   await sql`
     INSERT INTO vote_results (article_id, yes_count, no_count)
     VALUES (${art.id}, 0, 0)
@@ -161,4 +167,4 @@ for (const art of articles) {
   `
 }
 
-console.log('Seed zakończony — ' + articles.length + ' artykułów.')
+console.log(`Seed zakończony — sprawdzono ${articles.length} artykułów, dodano ${added} nowych. Istniejące dane pozostały nietknięte.`)

@@ -96,6 +96,7 @@ export default function Home() {
   const [stats, setStats] = useState<Stats | null>(null)
   const [email, setEmail] = useState('')
   const [regStatus, setRegStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const [voteError, setVoteError] = useState<string | null>(null)
   const [turnstileId, setTurnstileId] = useState<string | null>(null)
   const turnstileRef = useRef<HTMLDivElement>(null)
   const articleRefs = useRef<Record<string, HTMLDivElement | null>>({})
@@ -182,10 +183,13 @@ export default function Home() {
     const res = await fetch('/api/votes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ articleId, vote, comment }) })
     const data = await res.json()
     if (data.success) {
+      setVoteError(null)
       setResults(prev => ({ ...prev, [articleId]: data.results }))
       setUserVotes(prev => ({ ...prev, [articleId]: vote }))
       setTotal(prev => prev + 1)
       setStats(prev => prev ? { ...prev, totalVotes: prev.totalVotes + 1 } : prev)
+    } else {
+      setVoteError(data.error || 'Nie udało się zapisać głosu.')
     }
   }
 
@@ -255,6 +259,14 @@ export default function Home() {
 
   return (
     <>
+      {voteError && (
+        <div
+          onClick={() => setVoteError(null)}
+          style={{ position: 'fixed', top: '1rem', left: '50%', transform: 'translateX(-50%)', zIndex: 1000, background: 'var(--red, #b02a2a)', color: '#fff', padding: '0.75rem 1.25rem', borderRadius: '4px', fontSize: '14px', cursor: 'pointer', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', maxWidth: '90vw', textAlign: 'center' }}
+        >
+          {voteError} <span style={{ opacity: 0.8 }}>(kliknij aby zamknąć)</span>
+        </div>
+      )}
       <header>
         <div className="container">
           <div className="site-header">
