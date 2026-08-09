@@ -261,7 +261,7 @@ export default function Home() {
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', flexWrap: 'wrap' }}>
               <div className="logo">Lex <em>Populi</em></div>
               <div style={{ fontSize: "32px", color: "var(--text-lighter)", fontFamily: "Cormorant Garamond, serif", fontWeight: 300, letterSpacing: "2px" }}>
-                Wersja testowa · Planowany start: 27.07.2026
+                Wersja testowa · Planowany start: 27.07.2027
               </div>
             </div>
             <div className="tagline">Prawo Narodu · superanum.org · Polska 2025</div>
